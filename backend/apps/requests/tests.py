@@ -105,7 +105,7 @@ class PlatformCoreFlowTests(TestCase):
 
     def test_unauthorized_admin_access_rejected(self):
         response = self.client.get('/api/v1/admin/requests/')
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertIn(response.status_code, [status.HTTP_401_UNAUTHORIZED, status.HTTP_403_FORBIDDEN])
 
     def test_full_admin_quotation_and_order_workflow(self):
         # 1. Create a request
