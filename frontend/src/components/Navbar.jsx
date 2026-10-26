@@ -86,13 +86,13 @@ export default function Navbar() {
 
       {/* Mobile Menu dropdown */}
       {isOpen && (
-        <div className="md:hidden border-b border-slate-200 bg-white px-4 pt-2 pb-6 space-y-2">
+        <div className="md:hidden border-b border-slate-200 bg-white/98 backdrop-blur px-4 pt-3 pb-6 space-y-2 animate-in fade-in slide-in-from-top-2 duration-150 shadow-lg">
           {navLinks.map((link) => (
             <Link
               key={link.path}
               to={link.path}
               onClick={() => setIsOpen(false)}
-              className={`block px-3 py-2.5 rounded-lg text-base font-medium ${
+              className={`block px-4 py-3 rounded-xl text-base font-medium transition ${
                 isActive(link.path)
                   ? 'text-indigo-600 bg-indigo-50 font-semibold'
                   : 'text-slate-700 hover:bg-slate-50'
@@ -101,11 +101,18 @@ export default function Navbar() {
               {link.name}
             </Link>
           ))}
-          <div className="pt-2">
+          <div className="pt-2 border-t border-slate-100 flex flex-col gap-2">
+            <Link
+              to="/admin-dashboard"
+              onClick={() => setIsOpen(false)}
+              className="w-full flex items-center justify-center px-4 py-3 rounded-xl border border-slate-200 text-slate-700 font-semibold text-sm hover:bg-slate-50 transition"
+            >
+              Admin Dashboard
+            </Link>
             <Link
               to="/request"
               onClick={() => setIsOpen(false)}
-              className="w-full flex items-center justify-center px-4 py-3 rounded-lg bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition"
+              className="w-full flex items-center justify-center px-4 py-3.5 rounded-xl bg-indigo-600 text-white font-semibold text-sm hover:bg-indigo-700 transition shadow"
             >
               Request a Service
               <ArrowRight className="w-4 h-4 ml-2" />

@@ -4,8 +4,14 @@ import { serviceAPI } from '../api/client';
 import { ServiceCard } from '../components/Cards';
 import { LoadingSpinner, ErrorMessage, EmptyState } from '../components/UIComponents';
 import { Search, Filter, Sparkles, Layers, ArrowRight } from 'lucide-react';
+import { usePageSEO } from '../utils/useSEO';
 
 export default function ServicesPage() {
+  usePageSEO({
+    title: 'Services Catalog — Digital Services Platform',
+    description: 'Explore full digital services packages: Website Development, Graphic Design, Content & SEO, Excel Data Cleanup, and AI FAQ Chatbots.',
+  });
+
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedCategory = searchParams.get('category') || 'all';
   const [searchTerm, setSearchTerm] = useState('');

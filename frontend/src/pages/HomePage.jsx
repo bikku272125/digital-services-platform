@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { serviceAPI } from '../api/client';
 import { ServiceCard } from '../components/Cards';
 import { LoadingSpinner, ErrorMessage } from '../components/UIComponents';
+import { usePageSEO } from '../utils/useSEO';
 import {
   Code2,
   Palette,
@@ -18,6 +19,11 @@ import {
 } from 'lucide-react';
 
 export default function HomePage() {
+  usePageSEO({
+    title: 'Digital Services Platform — Websites, Design, Data & AI Solutions',
+    description: 'On-demand digital execution studio in India. Tell us what you need — websites, branding, data spreadsheets, and AI workflows delivered reliably.',
+  });
+
   const [categories, setCategories] = useState([]);
   const [featuredServices, setFeaturedServices] = useState([]);
   const [loading, setLoading] = useState(true);

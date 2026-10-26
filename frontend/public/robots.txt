@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin-dashboard
+
+Sitemap: https://frontend-xi-snowy-17.vercel.app/sitemap.xml

@@ -14,7 +14,14 @@ import {
   ArrowRight
 } from 'lucide-react';
 
+import { usePageSEO } from '../utils/useSEO';
+
 export default function RequestServicePage() {
+  usePageSEO({
+    title: 'Request a Service — Digital Services Platform',
+    description: 'Submit your digital project brief with zero signup required. Receive a transparent scope-based quotation within 24 hours.',
+  });
+
   const [searchParams] = useSearchParams();
   const preselectCatId = searchParams.get('category');
   const preselectServId = searchParams.get('service');

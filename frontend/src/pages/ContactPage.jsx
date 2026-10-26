@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import { Mail, Phone, Clock, MapPin, Send, CheckCircle2 } from 'lucide-react';
+import { usePageSEO } from '../utils/useSEO';
 
 export default function ContactPage() {
+  usePageSEO({
+    title: 'Contact Us — 24/7 Digital Support & Quotes',
+    description: 'Reach our team directly via phone, WhatsApp, or email. Available 24/7 based in Gurugram with remote access across India.',
+  });
+
   const [sent, setSent] = useState(false);
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
 
