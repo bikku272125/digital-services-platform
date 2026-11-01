@@ -142,24 +142,24 @@ export default function PosterStudioLanding() {
 
               <div className="flex flex-wrap items-center gap-4 pt-2">
                 <Link
-                  to="/poster-studio/order"
-                  className="px-6 py-3.5 rounded-xl font-semibold text-white bg-indigo-600 hover:bg-indigo-700 transition shadow-lg shadow-indigo-600/25 flex items-center gap-2 group"
+                  to="/poster-studio/editor"
+                  className="px-6 py-3.5 rounded-xl font-bold text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 transition shadow-lg shadow-indigo-600/25 flex items-center gap-2 group"
                 >
-                  <span>Order Custom Poster</span>
+                  <Sparkles className="w-4 h-4 text-amber-300 animate-spin" />
+                  <span>Open Live Online Editor</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <Link
-                  to="/poster-studio/templates"
-                  className="px-6 py-3.5 rounded-xl font-semibold bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 transition flex items-center gap-2"
+                  to="/poster-studio/order"
+                  className="px-5 py-3.5 rounded-xl font-semibold bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 transition flex items-center gap-2"
                 >
-                  <Palette className="w-4 h-4 text-purple-600" />
-                  <span>Browse Templates</span>
+                  <span>Order Custom Request</span>
                 </Link>
                 <Link
-                  to="/poster-studio/categories"
+                  to="/poster-studio/templates"
                   className="px-4 py-3.5 text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-indigo-600 transition"
                 >
-                  Explore Categories →
+                  Browse Templates →
                 </Link>
               </div>
 

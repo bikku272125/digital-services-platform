@@ -17,6 +17,7 @@ import PosterTemplates from './pages/poster-studio/PosterTemplates';
 import PosterTemplateDetail from './pages/poster-studio/PosterTemplateDetail';
 import PosterOrderForm from './pages/poster-studio/PosterOrderForm';
 import PosterOrderSuccess from './pages/poster-studio/PosterOrderSuccess';
+import PosterLiveEditor from './pages/poster-studio/PosterLiveEditor';
 
 export default function App() {
   return (
@@ -41,6 +42,7 @@ export default function App() {
           <Route path="poster-studio/categories" element={<PosterCategories />} />
           <Route path="poster-studio/templates" element={<PosterTemplates />} />
           <Route path="poster-studio/templates/:slug" element={<PosterTemplateDetail />} />
+          <Route path="poster-studio/editor" element={<PosterLiveEditor />} />
           <Route path="poster-studio/order" element={<PosterOrderForm />} />
           <Route path="poster-studio/order-success" element={<PosterOrderSuccess />} />
 
