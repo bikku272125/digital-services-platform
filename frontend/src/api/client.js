@@ -57,4 +57,19 @@ export const requestAPI = {
   }),
 };
 
+export const posterAPI = {
+  getCategories: () => apiClient.get('/posters/categories/'),
+  getTemplates: (params) => apiClient.get('/posters/templates/', { params }),
+  getTemplateBySlug: (slug) => apiClient.get(`/posters/templates/${slug}/`),
+  createOrder: (formData, onUploadProgress) => apiClient.post('/posters/orders/', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+    onUploadProgress,
+  }),
+  getOrderStatus: (reference, email) => apiClient.get(`/posters/orders/${reference}/`, {
+    params: { email },
+  }),
+};
+
 export default apiClient;

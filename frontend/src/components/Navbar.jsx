@@ -9,6 +9,7 @@ export default function Navbar() {
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Services', path: '/services' },
+    { name: 'Poster Studio', path: '/poster-studio', badge: 'New' },
     { name: 'How It Works', path: '/how-it-works' },
     { name: 'Portfolio', path: '/portfolio' },
     { name: 'FAQ', path: '/faq' },
@@ -43,13 +44,18 @@ export default function Navbar() {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition ${
+                className={`px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition flex items-center gap-1.5 ${
                   isActive(link.path)
                     ? 'text-indigo-600 bg-indigo-50/70 font-semibold'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                 }`}
               >
-                {link.name}
+                <span>{link.name}</span>
+                {link.badge && (
+                  <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-full bg-indigo-600 text-white">
+                    {link.badge}
+                  </span>
+                )}
               </Link>
             ))}
           </nav>

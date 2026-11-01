@@ -11,6 +11,12 @@ import FAQPage from './pages/FAQPage';
 import ContactPage from './pages/ContactPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
 import { PrivacyPolicyPage, TermsPage, RefundPolicyPage } from './pages/LegalPages';
+import PosterStudioLanding from './pages/poster-studio/PosterStudioLanding';
+import PosterCategories from './pages/poster-studio/PosterCategories';
+import PosterTemplates from './pages/poster-studio/PosterTemplates';
+import PosterTemplateDetail from './pages/poster-studio/PosterTemplateDetail';
+import PosterOrderForm from './pages/poster-studio/PosterOrderForm';
+import PosterOrderSuccess from './pages/poster-studio/PosterOrderSuccess';
 
 export default function App() {
   return (
@@ -29,6 +35,15 @@ export default function App() {
           <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
           <Route path="terms-conditions" element={<TermsPage />} />
           <Route path="cancellation-refunds" element={<RefundPolicyPage />} />
+
+          {/* Poster Design Studio Routes */}
+          <Route path="poster-studio" element={<PosterStudioLanding />} />
+          <Route path="poster-studio/categories" element={<PosterCategories />} />
+          <Route path="poster-studio/templates" element={<PosterTemplates />} />
+          <Route path="poster-studio/templates/:slug" element={<PosterTemplateDetail />} />
+          <Route path="poster-studio/order" element={<PosterOrderForm />} />
+          <Route path="poster-studio/order-success" element={<PosterOrderSuccess />} />
+
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>

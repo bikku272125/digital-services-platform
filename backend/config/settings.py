@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'apps.requests.apps.RequestsConfig',
     'apps.quotes.apps.QuotesConfig',
     'apps.orders.apps.OrdersConfig',
+    'apps.poster_studio.apps.PosterStudioConfig',
 ]
 
 MIDDLEWARE = [
