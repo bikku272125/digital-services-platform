@@ -2,4 +2,20 @@ User-agent: *
 Allow: /
 Disallow: /admin-dashboard
 
+# AI & Search Engine Crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
 Sitemap: https://digital.aaradhyaenertech.com/sitemap.xml
