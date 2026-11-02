@@ -27,10 +27,22 @@ class BlogCategory(models.Model):
 
 
 class BlogPost(models.Model):
+    POST_TYPE_CHOICES = (
+        ('blog', 'Editorial Blog'),
+        ('news', 'Trending News'),
+    )
+
     category = models.ForeignKey(
         BlogCategory,
         related_name='posts',
         on_delete=models.CASCADE
+    )
+    post_type = models.CharField(
+        max_length=20,
+        choices=POST_TYPE_CHOICES,
+        default='blog',
+        db_index=True,
+        help_text="Distinguish between in-depth Editorial Blog guides and real-time Trending News"
     )
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=280, unique=True, blank=True)

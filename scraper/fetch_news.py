@@ -79,6 +79,7 @@ def fetch_feed(feed_config, limit=3):
 
                 payload = {
                     "category_slug": feed_config["category_slug"],
+                    "post_type": "news",
                     "title": title,
                     "excerpt": (desc[:280] + "...") if len(desc) > 280 else (desc or title),
                     "content": body_content,

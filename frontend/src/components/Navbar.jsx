@@ -9,7 +9,8 @@ export default function Navbar() {
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Services', path: '/services' },
-    { name: 'Blog & News', path: '/blog' },
+    { name: 'News', path: '/news', badge: 'Live' },
+    { name: 'Blog', path: '/blog' },
     // { name: 'Poster Studio', path: '/poster-studio', badge: 'New' },
     { name: 'How It Works', path: '/how-it-works' },
     { name: 'Portfolio', path: '/portfolio' },
@@ -53,7 +54,9 @@ export default function Navbar() {
               >
                 <span>{link.name}</span>
                 {link.badge && (
-                  <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-full bg-indigo-600 text-white">
+                  <span className={`text-[10px] font-bold px-1.5 py-0.2 rounded-full text-white ${
+                    link.badge === 'Live' ? 'bg-rose-600 animate-pulse' : 'bg-indigo-600'
+                  }`}>
                     {link.badge}
                   </span>
                 )}

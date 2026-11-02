@@ -36,7 +36,7 @@ export default function BlogHome() {
 
   useEffect(() => {
     setLoading(true);
-    const params = {};
+    const params = { post_type: 'blog' };
     if (selectedCategory) params.category = selectedCategory;
     if (searchQuery) params.search = searchQuery;
 
@@ -53,6 +53,7 @@ export default function BlogHome() {
       .finally(() => setLoading(false));
   }, [selectedCategory, searchQuery]);
 
+  const blogCategories = categories.filter(c => !['trending-news'].includes(c.slug));
   const handleCategoryClick = (slug) => {
     const next = new URLSearchParams(searchParams);
     if (slug) {
@@ -81,13 +82,13 @@ export default function BlogHome() {
         <div className="text-center max-w-3xl mx-auto mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 text-xs font-semibold uppercase tracking-wider mb-3 border border-indigo-200 dark:border-indigo-800">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Knowledge & Trending Updates</span>
+            <span>Editorial & Guides</span>
           </div>
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight">
-            Digital Studio Insights & News
+            Digital Studio Blog & Knowledge Base
           </h1>
           <p className="text-slate-600 dark:text-slate-400 text-base sm:text-lg mt-3">
-            In-depth guides on AI automation, web architecture, business strategies, and trending tech news.
+            In-depth guides on AI automation, digital marketing, web engineering, and enterprise tech strategy.
           </p>
 
           {/* Search Bar */}
@@ -115,7 +116,7 @@ export default function BlogHome() {
           >
             All Topics
           </button>
-          {categories.map((cat) => (
+          {blogCategories.map((cat) => (
             <button
               key={cat.id || cat.slug}
               onClick={() => handleCategoryClick(cat.slug)}

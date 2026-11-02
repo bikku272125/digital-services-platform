@@ -81,10 +81,11 @@ class BlogSitemapXMLView(APIView):
                 '  </url>'
             ])
 
-        # Dynamic Blog Posts with Google News extension
+        # Dynamic Blog Posts & News with Google News extension
         for p in posts:
             pub_date_iso = p.published_at.strftime('%Y-%m-%d')
-            post_url = f"{base_url}/blog/{p.category.slug}/{p.slug}"
+            prefix = 'news' if p.post_type == 'news' else 'blog'
+            post_url = f"{base_url}/{prefix}/{p.category.slug}/{p.slug}"
             clean_title = escape(p.title)
             
             xml_lines.extend([
@@ -125,6 +126,10 @@ class BlogPostListView(generics.ListAPIView):
 
     def get_queryset(self):
         qs = BlogPost.objects.filter(is_published=True).select_related('category')
+
+        post_type = self.request.query_params.get('post_type')
+        if post_type in ['blog', 'news']:
+            qs = qs.filter(post_type=post_type)
 
         category = self.request.query_params.get('category')
         if category:
@@ -192,10 +197,13 @@ class InternalPostIngestView(APIView):
             defaults={'name': category_slug.replace('-', ' ').title()}
         )
 
+        post_type = data.get('post_type', 'news')
+
         post, created = BlogPost.objects.get_or_create(
             title=data.get('title'),
             defaults={
                 'category': category,
+                'post_type': post_type,
                 'excerpt': data.get('excerpt', ''),
                 'content': data.get('content', ''),
                 'featured_image': data.get('featured_image', ''),
