@@ -138,10 +138,14 @@ export default function BlogHome() {
               className="group block relative rounded-3xl overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-lg hover:shadow-2xl transition duration-300"
             >
               <div className="grid grid-cols-1 lg:grid-cols-12 items-center">
-                <div className="lg:col-span-7 relative aspect-[16/10] overflow-hidden bg-slate-100 dark:bg-slate-800">
+                <div className="lg:col-span-7 relative aspect-[16/10] overflow-hidden bg-slate-800">
                   <img
                     src={featuredPost.featured_image || 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80'}
                     alt={featuredPost.title}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80';
+                    }}
                     className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                   />
                   <div className="absolute top-4 left-4">
@@ -204,10 +208,14 @@ export default function BlogHome() {
                 className="group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
-                  <div className="relative aspect-[16/10] overflow-hidden bg-slate-100 dark:bg-slate-800">
+                  <div className="relative aspect-[16/10] overflow-hidden bg-slate-800">
                     <img
                       src={post.featured_image || 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80'}
                       alt={post.title}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80';
+                      }}
                       className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                     />
                     <div className="absolute top-3 left-3">

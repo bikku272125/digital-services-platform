@@ -125,10 +125,14 @@ export default function BlogPostDetail() {
 
         {/* Featured Image */}
         {post.featured_image && (
-          <div className="rounded-3xl overflow-hidden aspect-[16/9] mb-10 shadow-lg bg-slate-100 dark:bg-slate-800">
+          <div className="rounded-3xl overflow-hidden aspect-[16/9] mb-10 shadow-lg bg-slate-800">
             <img
               src={post.featured_image}
               alt={post.title}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80';
+              }}
               className="w-full h-full object-cover"
             />
           </div>
