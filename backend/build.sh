@@ -6,7 +6,7 @@ pip install -r requirements.txt
 python manage.py collectstatic --no-input
 python manage.py migrate
 python manage.py seed_services
-python manage.py seed_poster_studio
+python manage.py seed_blog
 
 # Ensure admin superuser exists
 python manage.py shell -c "

@@ -72,4 +72,10 @@ export const posterAPI = {
   }),
 };
 
+export const blogAPI = {
+  getCategories: () => apiClient.get('/blog/categories/'),
+  getPosts: (params) => apiClient.get('/blog/posts/', { params }),
+  getPostBySlug: (slug) => apiClient.get(`/blog/posts/${slug}/`),
+};
+
 export default apiClient;

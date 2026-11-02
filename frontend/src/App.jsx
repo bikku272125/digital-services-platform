@@ -11,6 +11,8 @@ import FAQPage from './pages/FAQPage';
 import ContactPage from './pages/ContactPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
 import { PrivacyPolicyPage, TermsPage, RefundPolicyPage } from './pages/LegalPages';
+import BlogHome from './pages/blog/BlogHome';
+import BlogPostDetail from './pages/blog/BlogPostDetail';
 import PosterStudioLanding from './pages/poster-studio/PosterStudioLanding';
 import PosterCategories from './pages/poster-studio/PosterCategories';
 import PosterTemplates from './pages/poster-studio/PosterTemplates';
@@ -36,6 +38,10 @@ export default function App() {
           <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
           <Route path="terms-conditions" element={<TermsPage />} />
           <Route path="cancellation-refunds" element={<RefundPolicyPage />} />
+
+          {/* Blog & Trending News Studio */}
+          <Route path="blog" element={<BlogHome />} />
+          <Route path="blog/:category/:slug" element={<BlogPostDetail />} />
 
           {/* Poster Design Studio Routes (Commented out) */}
           {/*
