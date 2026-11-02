@@ -21,3 +21,11 @@ jobs:
       - name: Run Automated News Ingestion
         run: |
           python scraper/fetch_news.py
+
+      - name: Commit Updated Sitemap to Main
+        run: |
+          git config --global user.name "Aaradhya Automation Bot"
+          git config --global user.email "bot@aaradhyaenertech.com"
+          git add frontend/public/sitemap.xml
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore(seo): auto-update dynamic news sitemap [skip ci]" && git push origin main)
+

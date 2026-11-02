@@ -1,63 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+  <!-- Core Platform Routes -->
   <url>
     <loc>https://digital.aaradhyaenertech.com/</loc>
-    <lastmod>2026-10-27</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://digital.aaradhyaenertech.com/services</loc>
-    <lastmod>2026-10-27</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://digital.aaradhyaenertech.com/blog</loc>
+    <changefreq>hourly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://digital.aaradhyaenertech.com/how-it-works</loc>
-    <lastmod>2026-10-27</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://digital.aaradhyaenertech.com/services</loc>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://digital.aaradhyaenertech.com/portfolio</loc>
-    <lastmod>2026-10-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://digital.aaradhyaenertech.com/request</loc>
-    <lastmod>2026-10-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://digital.aaradhyaenertech.com/faq</loc>
-    <lastmod>2026-10-27</lastmod>
+    <loc>https://digital.aaradhyaenertech.com/how-it-works</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://digital.aaradhyaenertech.com/request</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://digital.aaradhyaenertech.com/contact</loc>
-    <lastmod>2026-10-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://digital.aaradhyaenertech.com/privacy-policy</loc>
-    <lastmod>2026-10-27</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <loc>https://digital.aaradhyaenertech.com/faq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://digital.aaradhyaenertech.com/terms-conditions</loc>
-    <lastmod>2026-10-27</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <loc>https://digital.aaradhyaenertech.com/blog?category=technology</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://digital.aaradhyaenertech.com/cancellation-refunds</loc>
-    <lastmod>2026-10-27</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <loc>https://digital.aaradhyaenertech.com/blog?category=business</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://digital.aaradhyaenertech.com/blog?category=trending-news</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://digital.aaradhyaenertech.com/blog?category=design</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://digital.aaradhyaenertech.com/blog?category=schemes-notices</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://digital.aaradhyaenertech.com/blog/trending-news/indias-clean-energy-smart-grid-expansion</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Aaradhya Enertech Digital Intelligence</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-02T20:23:43.403111+00:00</news:publication_date>
+      <news:title>India&#x27;s Clean Energy &amp; Smart Grid Expansion: Powering Industrial Growth</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://digital.aaradhyaenertech.com/blog/business/why-msmes-need-clean-digital-footprints</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Aaradhya Enertech Digital Intelligence</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-02T20:23:43.401838+00:00</news:publication_date>
+      <news:title>Why Indian MSMEs Need Clean Digital Footprints and Dedicated Subdomains</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://digital.aaradhyaenertech.com/blog/technology/generative-ai-reshaping-digital-work-2026</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Aaradhya Enertech Digital Intelligence</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-02T20:23:43.400344+00:00</news:publication_date>
+      <news:title>How Generative AI is Reshaping On-Demand Digital Work in 2026</news:title>
+    </news:news>
   </url>
 </urlset>

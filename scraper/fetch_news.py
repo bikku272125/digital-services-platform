@@ -110,8 +110,27 @@ def fetch_feed(feed_config, limit=3):
     except Exception as e:
         print(f"Failed to fetch {url}: {e}")
 
+def sync_public_sitemap():
+    """
+    Pulls dynamic sitemap from Render and commits/saves it to frontend/public/sitemap.xml
+    so static Vercel CDN serves the updated URLs to Googlebot directly.
+    """
+    sitemap_url = "https://digital-services-platform-slnw.onrender.com/sitemap.xml"
+    try:
+        req = urllib.request.Request(sitemap_url, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            content = resp.read().decode("utf-8")
+        
+        target_path = "frontend/public/sitemap.xml"
+        with open(target_path, "w", encoding="utf-8") as f:
+            f.write(content)
+        print("Successfully synchronized frontend/public/sitemap.xml with live database posts.")
+    except Exception as e:
+        print(f"Could not sync static sitemap: {e}")
+
 if __name__ == "__main__":
     print("Starting automated news ingestion pipeline...")
     for f in FEEDS:
         fetch_feed(f, limit=2)
+    sync_public_sitemap()
     print("Ingestion complete.")
