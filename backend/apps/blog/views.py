@@ -1,13 +1,113 @@
+from django.http import HttpResponse
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.db.models import Q, F
+from django.utils.html import escape
 from .models import BlogCategory, BlogPost
 from .serializers import (
     BlogCategorySerializer,
     BlogPostListSerializer,
     BlogPostDetailSerializer,
 )
+
+
+class BlogSitemapXMLView(APIView):
+    """
+    Returns a dynamic XML sitemap containing all published blog posts and category routes,
+    plus core platform routes. Formatted strictly for Google Search Console & Google News indexing.
+    """
+    permission_classes = [permissions.AllowAny]
+
+    def get(self, request):
+        base_url = "https://digital.aaradhyaenertech.com"
+        posts = BlogPost.objects.filter(is_published=True).select_related('category').order_by('-published_at')
+        categories = BlogCategory.objects.filter(is_active=True)
+
+        xml_lines = [
+            '<?xml version="1.0" encoding="UTF-8"?>',
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
+            '        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">',
+            '  <!-- Core Platform Routes -->',
+            '  <url>',
+            f'    <loc>{base_url}/</loc>',
+            '    <changefreq>daily</changefreq>',
+            '    <priority>1.0</priority>',
+            '  </url>',
+            '  <url>',
+            f'    <loc>{base_url}/blog</loc>',
+            '    <changefreq>hourly</changefreq>',
+            '    <priority>0.9</priority>',
+            '  </url>',
+            '  <url>',
+            f'    <loc>{base_url}/services</loc>',
+            '    <changefreq>weekly</changefreq>',
+            '    <priority>0.8</priority>',
+            '  </url>',
+            '  <url>',
+            f'    <loc>{base_url}/portfolio</loc>',
+            '    <changefreq>weekly</changefreq>',
+            '    <priority>0.8</priority>',
+            '  </url>',
+            '  <url>',
+            f'    <loc>{base_url}/how-it-works</loc>',
+            '    <changefreq>monthly</changefreq>',
+            '    <priority>0.7</priority>',
+            '  </url>',
+            '  <url>',
+            f'    <loc>{base_url}/request</loc>',
+            '    <changefreq>monthly</changefreq>',
+            '    <priority>0.8</priority>',
+            '  </url>',
+            '  <url>',
+            f'    <loc>{base_url}/contact</loc>',
+            '    <changefreq>monthly</changefreq>',
+            '    <priority>0.7</priority>',
+            '  </url>',
+            '  <url>',
+            f'    <loc>{base_url}/faq</loc>',
+            '    <changefreq>monthly</changefreq>',
+            '    <priority>0.6</priority>',
+            '  </url>',
+        ]
+
+        # Dynamic Categories
+        for cat in categories:
+            xml_lines.extend([
+                '  <url>',
+                f'    <loc>{base_url}/blog?category={cat.slug}</loc>',
+                '    <changefreq>daily</changefreq>',
+                '    <priority>0.8</priority>',
+                '  </url>'
+            ])
+
+        # Dynamic Blog Posts with Google News extension
+        for p in posts:
+            pub_date_iso = p.published_at.strftime('%Y-%m-%d')
+            post_url = f"{base_url}/blog/{p.category.slug}/{p.slug}"
+            clean_title = escape(p.title)
+            
+            xml_lines.extend([
+                '  <url>',
+                f'    <loc>{post_url}</loc>',
+                f'    <lastmod>{pub_date_iso}</lastmod>',
+                '    <changefreq>weekly</changefreq>',
+                '    <priority>0.8</priority>',
+                '    <news:news>',
+                '      <news:publication>',
+                '        <news:name>Aaradhya Enertech Digital Intelligence</news:name>',
+                '        <news:language>en</news:language>',
+                '      </news:publication>',
+                f'      <news:publication_date>{p.published_at.isoformat()}</news:publication_date>',
+                f'      <news:title>{clean_title}</news:title>',
+                '    </news:news>',
+                '  </url>'
+            ])
+
+        xml_lines.append('</urlset>')
+        xml_content = '\n'.join(xml_lines)
+        return HttpResponse(xml_content, content_type='application/xml')
+
 
 
 class BlogCategoryListView(generics.ListAPIView):

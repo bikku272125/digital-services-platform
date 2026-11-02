@@ -4,6 +4,7 @@ from .views import (
     BlogPostListView,
     BlogPostDetailView,
     InternalPostIngestView,
+    BlogSitemapXMLView,
 )
 
 urlpatterns = [
@@ -11,4 +12,5 @@ urlpatterns = [
     path('blog/posts/', BlogPostListView.as_view(), name='blog-posts-list'),
     path('blog/posts/<slug:slug>/', BlogPostDetailView.as_view(), name='blog-post-detail'),
     path('blog/ingest/', InternalPostIngestView.as_view(), name='blog-post-ingest'),
+    path('sitemap.xml', BlogSitemapXMLView.as_view(), name='blog-dynamic-sitemap'),
 ]

@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/sitemap.xml",
+      "destination": "https://digital-services-platform-slnw.onrender.com/sitemap.xml"
+    },
+    {
       "source": "/((?!favicon|googlee91b5095bb789c8e\\.html|googleccaf88aae154244a\\.html|robots\\.txt|sitemap\\.xml).*)",
       "destination": "/index.html"
     }

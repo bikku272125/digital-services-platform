@@ -26,7 +26,17 @@ export default function BlogPostDetail() {
     window.scrollTo(0, 0);
     setLoading(true);
     blogAPI.getPostBySlug(slug)
-      .then(res => setPost(res.data))
+      .then(res => {
+        setPost(res.data);
+        // Dynamically update document title & meta tags for SEO
+        if (res.data) {
+          document.title = `${res.data.title} | Aaradhya Enertech Insights`;
+          const metaDesc = document.querySelector('meta[name="description"]');
+          if (metaDesc) {
+            metaDesc.setAttribute('content', res.data.excerpt || res.data.title);
+          }
+        }
+      })
       .catch(err => console.error('Error fetching post', err))
       .finally(() => setLoading(false));
   }, [slug]);
@@ -71,8 +81,44 @@ export default function BlogPostDetail() {
     );
   }
 
+  const jsonLdData = post ? {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": window.location.href
+    },
+    "headline": post.title,
+    "description": post.excerpt,
+    "image": [post.featured_image || "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80"],
+    "datePublished": post.published_at,
+    "dateModified": post.updated_at || post.published_at,
+    "author": {
+      "@type": "Organization",
+      "name": post.source_name ? `Curated via ${post.source_name}` : "Aaradhya Enertech Digital Intelligence",
+      "url": "https://digital.aaradhyaenertech.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Aaradhya Enertech Digital Services",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://digital.aaradhyaenertech.com/favicon.svg"
+      }
+    },
+    "keywords": post.tags ? post.tags.join(", ") : "Technology, Digital Transformation, Business"
+  } : null;
+
   return (
     <article className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 py-10 md:py-16">
+      {/* Google News & BlogPosting Structured Data */}
+      {jsonLdData && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdData) }}
+        />
+      )}
+
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Back Link */}
         <div className="mb-6 flex items-center justify-between">

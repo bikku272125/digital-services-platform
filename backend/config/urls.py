@@ -7,6 +7,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from .views import root_health_view
 
+from apps.blog.views import BlogSitemapXMLView
+
 api_patterns = [
     path('', include('apps.services.urls')),
     path('', include('apps.requests.urls')),
@@ -18,6 +20,7 @@ api_patterns = [
 
 urlpatterns = [
     path('', root_health_view, name='root-health'),
+    path('sitemap.xml', BlogSitemapXMLView.as_view(), name='root-sitemap'),
     path('admin/', admin.site.urls),
     path('api/v1/', include(api_patterns)),
 ]
