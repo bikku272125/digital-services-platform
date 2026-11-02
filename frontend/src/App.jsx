@@ -37,7 +37,8 @@ export default function App() {
           <Route path="terms-conditions" element={<TermsPage />} />
           <Route path="cancellation-refunds" element={<RefundPolicyPage />} />
 
-          {/* Poster Design Studio Routes */}
+          {/* Poster Design Studio Routes (Commented out) */}
+          {/*
           <Route path="poster-studio" element={<PosterStudioLanding />} />
           <Route path="poster-studio/categories" element={<PosterCategories />} />
           <Route path="poster-studio/templates" element={<PosterTemplates />} />
@@ -45,6 +46,7 @@ export default function App() {
           <Route path="poster-studio/editor" element={<PosterLiveEditor />} />
           <Route path="poster-studio/order" element={<PosterOrderForm />} />
           <Route path="poster-studio/order-success" element={<PosterOrderSuccess />} />
+          */}
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
