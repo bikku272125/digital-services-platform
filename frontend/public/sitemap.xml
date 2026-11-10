@@ -68,8 +68,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://digital.aaradhyaenertech.com/news/trending-news/exclusive-sheikh-hasina-seeks-new-passport-to-return-to-bangladesh-government-denies-request</loc>
-    <lastmod>2026-11-09</lastmod>
+    <loc>https://digital.aaradhyaenertech.com/news/trending-news/ahead-of-abu-dhabi-peace-talks-modi-speaks-to-zelenskyy-jaishankar-speaks-to-lavrov</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <news:news>
@@ -77,13 +77,13 @@
         <news:name>Aaradhya Enertech Digital Intelligence</news:name>
         <news:language>en</news:language>
       </news:publication>
-      <news:publication_date>2026-11-09T14:58:31.430415+00:00</news:publication_date>
-      <news:title>EXCLUSIVE: Sheikh Hasina seeks new passport to return to Bangladesh, government denies request</news:title>
+      <news:publication_date>2026-11-10T01:06:23.706571+00:00</news:publication_date>
+      <news:title>Ahead of Abu Dhabi peace talks, Modi speaks to Zelenskyy; Jaishankar speaks to Lavrov</news:title>
     </news:news>
   </url>
   <url>
-    <loc>https://digital.aaradhyaenertech.com/news/trending-news/thick-smog-shrouds-new-delhi-after-diwali-firecrackers-add-to-seasonal-pollution</loc>
-    <lastmod>2026-11-09</lastmod>
+    <loc>https://digital.aaradhyaenertech.com/news/trending-news/from-sikkim-to-saudi-arabia-where-union-ministers-were-on-diwali-as-delhis-air-worsened</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <news:news>
@@ -91,13 +91,13 @@
         <news:name>Aaradhya Enertech Digital Intelligence</news:name>
         <news:language>en</news:language>
       </news:publication>
-      <news:publication_date>2026-11-09T14:58:31.240199+00:00</news:publication_date>
-      <news:title>Thick smog shrouds New Delhi after Diwali firecrackers add to seasonal pollution</news:title>
+      <news:publication_date>2026-11-10T01:06:23.551238+00:00</news:publication_date>
+      <news:title>From Sikkim to Saudi Arabia: Where Union ministers were on Diwali as Delhi’s air worsened</news:title>
     </news:news>
   </url>
   <url>
-    <loc>https://digital.aaradhyaenertech.com/news/business/stock-market-close-sensex-ends-volatile-trade-107-pts-higher-nifty-at-25045-psu-bank-index-up-3</loc>
-    <lastmod>2026-11-09</lastmod>
+    <loc>https://digital.aaradhyaenertech.com/news/business/how-long-can-indian-markets-remain-decoupled-from-global-equity-rout-check-what-analysts-say</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <news:news>
@@ -105,8 +105,22 @@
         <news:name>Aaradhya Enertech Digital Intelligence</news:name>
         <news:language>en</news:language>
       </news:publication>
-      <news:publication_date>2026-11-09T14:58:30.262726+00:00</news:publication_date>
-      <news:title>Stock Market Close: Sensex ends volatile trade 107 pts higher, Nifty at 25,045; PSU Bank index up 3%</news:title>
+      <news:publication_date>2026-11-10T01:06:23.386106+00:00</news:publication_date>
+      <news:title>How long can Indian markets remain decoupled from global equity rout? Check what analysts say</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://digital.aaradhyaenertech.com/news/business/he-had-no-idea-she-was-a-spy-trump-backs-nvidia-ceo-jensen-huang</loc>
+    <lastmod>2026-11-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Aaradhya Enertech Digital Intelligence</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-10T01:06:23.243226+00:00</news:publication_date>
+      <news:title>&#x27;He had no idea she was a spy&#x27;: Trump backs Nvidia CEO Jensen Huang</news:title>
     </news:news>
   </url>
   <url>
