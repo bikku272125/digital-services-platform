@@ -68,8 +68,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://digital.aaradhyaenertech.com/news/trending-news/india-simplifies-visa-norms-categories-cut-forms-to-be-70-leaner</loc>
-    <lastmod>2026-11-11</lastmod>
+    <loc>https://digital.aaradhyaenertech.com/news/trending-news/15-rounds-then-a-happy-diwali-faridabad-murder-over-parking-row-caught-on-cctv</loc>
+    <lastmod>2026-11-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <news:news>
@@ -77,8 +77,36 @@
         <news:name>Aaradhya Enertech Digital Intelligence</news:name>
         <news:language>en</news:language>
       </news:publication>
-      <news:publication_date>2026-11-11T23:58:36.483138+00:00</news:publication_date>
-      <news:title>India simplifies visa norms; categories cut, forms to be 70% leaner</news:title>
+      <news:publication_date>2026-11-12T06:17:43.035750+00:00</news:publication_date>
+      <news:title>15 rounds, then a &#x27;Happy Diwali&#x27;: Faridabad murder over parking row caught on CCTV</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://digital.aaradhyaenertech.com/news/trending-news/two-missing-policemen-found-dead-in-jks-kishtwar</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Aaradhya Enertech Digital Intelligence</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-12T06:17:42.764326+00:00</news:publication_date>
+      <news:title>Two missing policemen found dead in J&amp;K’s Kishtwar</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://digital.aaradhyaenertech.com/news/business/anthropic-ipo-could-draw-record-retail-buying-vanda-research-says</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Aaradhya Enertech Digital Intelligence</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-12T06:17:42.567867+00:00</news:publication_date>
+      <news:title>Anthropic IPO could draw record retail buying, Vanda Research says</news:title>
     </news:news>
   </url>
   <url>
