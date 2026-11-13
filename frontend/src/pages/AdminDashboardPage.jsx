@@ -22,7 +22,9 @@ import {
   Building,
   User,
   Calendar,
-  Layers
+  Layers,
+  Globe,
+  Download
 } from 'lucide-react';
 
 export default function AdminDashboardPage() {
@@ -34,10 +36,12 @@ export default function AdminDashboardPage() {
   const [loginError, setLoginError] = useState(null);
 
   // Dashboard Data State
-  const [activeTab, setActiveTab] = useState('requests'); // requests | orders
+  const [activeTab, setActiveTab] = useState('waas_orders'); // waas_orders | requests | orders
+  const [waasOrders, setWaasOrders] = useState([]);
   const [requests, setRequests] = useState([]);
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [selectedWaasOrder, setSelectedWaasOrder] = useState(null);
   const [selectedRequest, setSelectedRequest] = useState(null);
   const [selectedOrder, setSelectedOrder] = useState(null);
 
@@ -92,12 +96,14 @@ export default function AdminDashboardPage() {
         ? { Authorization: `Basic ${tokenOverride}` }
         : getAuthHeaders();
 
-      const [reqRes, ordRes] = await Promise.all([
+      const [reqRes, ordRes, waasRes] = await Promise.all([
         apiClient.get('/admin/requests/', { headers }),
         apiClient.get('/admin/orders/', { headers }),
+        apiClient.get('/websites/admin/orders/', { headers }).catch(() => ({ data: [] })),
       ]);
       setRequests(reqRes.data.results || reqRes.data || []);
       setOrders(ordRes.data.results || ordRes.data || []);
+      setWaasOrders(waasRes.data?.results || waasRes.data || []);
     } catch (err) {
       if (err.response?.status === 401 || err.response?.status === 403) {
         handleLogout();
@@ -256,20 +262,35 @@ export default function AdminDashboardPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center space-x-2 border-b border-slate-200 pb-2">
+      <div className="flex items-center space-x-2 border-b border-slate-200 pb-2 overflow-x-auto">
+        <button
+          onClick={() => {
+            setActiveTab('waas_orders');
+            setSelectedWaasOrder(null);
+          }}
+          className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 shrink-0 ${
+            activeTab === 'waas_orders'
+              ? 'bg-indigo-600 text-white shadow-sm'
+              : 'text-slate-600 hover:bg-slate-100'
+          }`}
+        >
+          <Globe className="w-4 h-4" />
+          <span>Website Orders & Subscriptions ({waasOrders.length})</span>
+        </button>
+
         <button
           onClick={() => {
             setActiveTab('requests');
             setSelectedRequest(null);
           }}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 ${
+          className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 shrink-0 ${
             activeTab === 'requests'
               ? 'bg-indigo-600 text-white shadow-sm'
               : 'text-slate-600 hover:bg-slate-100'
           }`}
         >
           <Inbox className="w-4 h-4" />
-          <span>Incoming Requests ({requests.length})</span>
+          <span>Service Requests ({requests.length})</span>
         </button>
 
         <button
@@ -277,19 +298,191 @@ export default function AdminDashboardPage() {
             setActiveTab('orders');
             setSelectedOrder(null);
           }}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 ${
+          className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 shrink-0 ${
             activeTab === 'orders'
               ? 'bg-indigo-600 text-white shadow-sm'
               : 'text-slate-600 hover:bg-slate-100'
           }`}
         >
           <Package className="w-4 h-4" />
-          <span>Active Orders & Work ({orders.length})</span>
+          <span>Custom Service Orders ({orders.length})</span>
         </button>
       </div>
 
       {/* Main Content Area */}
-      {activeTab === 'requests' ? (
+      {activeTab === 'waas_orders' ? (
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Orders List */}
+          <div className="lg:col-span-1 space-y-3">
+            <h2 className="text-xs font-bold uppercase tracking-wider text-slate-500">
+              Website Orders ({waasOrders.length})
+            </h2>
+            {waasOrders.length === 0 ? (
+              <div className="p-8 text-center bg-white rounded-2xl border border-slate-200 text-xs text-slate-500">
+                No website orders submitted yet.
+              </div>
+            ) : (
+              waasOrders.map((wo) => {
+                const isSelected = selectedWaasOrder?.id === wo.id;
+                return (
+                  <div
+                    key={wo.id}
+                    onClick={() => setSelectedWaasOrder(wo)}
+                    className={`p-4 rounded-2xl border cursor-pointer transition text-left space-y-2 ${
+                      isSelected
+                        ? 'border-indigo-600 bg-indigo-50/60 shadow-sm'
+                        : 'border-slate-200 bg-white hover:border-slate-300'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-xs font-bold text-indigo-600">{wo.order_ref}</span>
+                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${
+                        wo.is_trial ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-700'
+                      }`}>
+                        {wo.is_trial ? '7-Day Trial' : (wo.package_details?.name || 'Package')}
+                      </span>
+                    </div>
+
+                    <div>
+                      <h3 className="font-bold text-sm text-slate-900">{wo.organization_name}</h3>
+                      <p className="text-xs text-slate-500">{wo.customer_name} • {wo.customer_phone}</p>
+                    </div>
+
+                    <div className="flex items-center justify-between pt-2 border-t border-slate-100 text-[11px] text-slate-400">
+                      <span>Subdomain: {wo.requested_subdomain || 'Auto'}</span>
+                      <span className="font-semibold text-slate-700">{wo.status}</span>
+                    </div>
+                  </div>
+                );
+              })
+            )}
+          </div>
+
+          {/* Order Detail View */}
+          <div className="lg:col-span-2">
+            {selectedWaasOrder ? (
+              <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-100">
+                  <div>
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Order Management</span>
+                    <h2 className="text-2xl font-black text-slate-900 mt-0.5">
+                      {selectedWaasOrder.organization_name}
+                    </h2>
+                    <p className="text-xs font-mono text-indigo-600 mt-1">Ref: {selectedWaasOrder.order_ref}</p>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <span className="px-3 py-1 rounded-full bg-indigo-100 text-indigo-800 font-bold text-xs">
+                      {selectedWaasOrder.status}
+                    </span>
+                    {selectedWaasOrder.is_trial && (
+                      <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 font-bold text-xs">
+                        Trial Active
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Customer & Package Info Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs bg-slate-50 p-4 rounded-2xl">
+                  <div>
+                    <span className="text-slate-400 font-medium">Contact Person</span>
+                    <p className="font-bold text-slate-900 mt-0.5">{selectedWaasOrder.customer_name}</p>
+                    <p className="text-slate-500">{selectedWaasOrder.customer_email} • {selectedWaasOrder.customer_phone}</p>
+                    <p className="text-slate-500">{selectedWaasOrder.city || 'City not specified'}</p>
+                  </div>
+
+                  <div>
+                    <span className="text-slate-400 font-medium">Package & Plan</span>
+                    <p className="font-bold text-slate-900 mt-0.5">{selectedWaasOrder.package_details?.name || 'Selected Package'}</p>
+                    <p className="text-slate-500">₹{Number(selectedWaasOrder.total_amount_inr).toLocaleString('en-IN')}</p>
+                    <p className="text-slate-500">Template: {selectedWaasOrder.template_details?.title || 'Custom / None'}</p>
+                  </div>
+                </div>
+
+                {/* Subdomain & Domain */}
+                <div className="space-y-2 text-xs">
+                  <h4 className="font-bold text-slate-700 uppercase tracking-wider text-[11px]">Domain Configuration</h4>
+                  <div className="p-4 rounded-2xl border border-slate-200 space-y-2">
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">Requested Subdomain:</span>
+                      <span className="font-mono font-bold text-indigo-600">
+                        {selectedWaasOrder.requested_subdomain ? `${selectedWaasOrder.requested_subdomain}.aaradhyaenertech.com` : 'None'}
+                      </span>
+                    </div>
+                    {selectedWaasOrder.custom_domain && (
+                      <div className="flex justify-between">
+                        <span className="text-slate-500">Custom Domain:</span>
+                        <span className="font-mono font-bold">{selectedWaasOrder.custom_domain}</span>
+                      </div>
+                    )}
+                    {selectedWaasOrder.deployed_url && (
+                      <div className="flex justify-between items-center pt-2 border-t border-slate-100">
+                        <span className="text-slate-500">Live URL:</span>
+                        <a
+                          href={selectedWaasOrder.deployed_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-bold text-indigo-600 hover:underline flex items-center gap-1"
+                        >
+                          <span>{selectedWaasOrder.deployed_url}</span>
+                          <ExternalLink className="w-3.5 h-3.5" />
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Requirements & Notes */}
+                {selectedWaasOrder.requirements_note && (
+                  <div className="space-y-2 text-xs">
+                    <h4 className="font-bold text-slate-700 uppercase tracking-wider text-[11px]">Customer Requirements</h4>
+                    <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 whitespace-pre-line text-slate-700 leading-relaxed font-sans">
+                      {selectedWaasOrder.requirements_note}
+                    </div>
+                  </div>
+                )}
+
+                {/* Uploaded Assets */}
+                {(selectedWaasOrder.uploaded_logo || selectedWaasOrder.uploaded_brochure) && (
+                  <div className="space-y-2 text-xs">
+                    <h4 className="font-bold text-slate-700 uppercase tracking-wider text-[11px]">Uploaded Client Assets</h4>
+                    <div className="flex flex-wrap gap-4">
+                      {selectedWaasOrder.uploaded_logo && (
+                        <a
+                          href={selectedWaasOrder.uploaded_logo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-4 py-2.5 rounded-xl border border-indigo-200 bg-indigo-50 text-indigo-700 font-bold flex items-center gap-2 hover:bg-indigo-100 transition"
+                        >
+                          <Download className="w-4 h-4" />
+                          <span>View / Download Logo</span>
+                        </a>
+                      )}
+                      {selectedWaasOrder.uploaded_brochure && (
+                        <a
+                          href={selectedWaasOrder.uploaded_brochure}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 font-bold flex items-center gap-2 hover:bg-slate-100 transition"
+                        >
+                          <FileText className="w-4 h-4" />
+                          <span>View Brochure / Document</span>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+              </div>
+            ) : (
+              <div className="bg-white rounded-3xl border border-slate-200 p-12 text-center text-slate-400 text-xs">
+                Select an order from the left list to view customer details, uploaded logo, and requirements.
+              </div>
+            )}
+          </div>
+        </div>
+      ) : activeTab === 'requests' ? (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Requests List */}
           <div className="lg:col-span-1 space-y-3">
