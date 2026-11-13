@@ -105,35 +105,42 @@ export default function AdminDashboardPage() {
   };
 
   const fetchDashboardData = async (tokenOverride) => {
+    setLoading(true);
+    const headers = tokenOverride
+      ? { Authorization: `Basic ${tokenOverride}` }
+      : getAuthHeaders();
+
+    // 1. Fetch WaaS orders completely independently
     try {
-      setLoading(true);
-      const headers = tokenOverride
-        ? { Authorization: `Basic ${tokenOverride}` }
-        : getAuthHeaders();
-
-      // First fetch WaaS orders directly without blocking
-      try {
-        const waasRes = await apiClient.get('/websites/admin/orders/');
-        const wData = waasRes.data?.results || waasRes.data || [];
-        setWaasOrders(wData);
-        if (wData.length > 0 && !selectedWaasOrder) {
-          handleSelectWaasOrder(wData[0]);
-        }
-      } catch (wErr) {
-        console.error("Error fetching waas orders:", wErr);
+      const waasRes = await apiClient.get('/websites/admin/orders/');
+      const wData = waasRes.data?.results || waasRes.data || [];
+      const orderList = Array.isArray(wData) ? wData : [];
+      setWaasOrders(orderList);
+      if (orderList.length > 0) {
+        setSelectedWaasOrder((prev) => {
+          if (!prev) return orderList[0];
+          const matched = orderList.find(o => o.id === prev.id || o.order_ref === prev.order_ref);
+          return matched || orderList[0];
+        });
       }
+    } catch (wErr) {
+      console.error("Error fetching WaaS orders:", wErr);
+    }
 
-      // Then fetch secured requests & custom orders
-      const [reqRes, ordRes] = await Promise.all([
-        apiClient.get('/admin/requests/', { headers }).catch(() => ({ data: [] })),
-        apiClient.get('/admin/orders/', { headers }).catch(() => ({ data: [] })),
+    // 2. Fetch secured requests & custom orders independently without knocking out WaaS
+    try {
+      const [reqRes, ordRes] = await Promise.allSettled([
+        apiClient.get('/admin/requests/', { headers }),
+        apiClient.get('/admin/orders/', { headers }),
       ]);
-      setRequests(reqRes.data.results || reqRes.data || []);
-      setOrders(ordRes.data.results || ordRes.data || []);
-    } catch (err) {
-      if (err.response?.status === 401 || err.response?.status === 403) {
-        handleLogout();
+      if (reqRes.status === 'fulfilled') {
+        setRequests(reqRes.value.data?.results || reqRes.value.data || []);
       }
+      if (ordRes.status === 'fulfilled') {
+        setOrders(ordRes.value.data?.results || ordRes.value.data || []);
+      }
+    } catch (err) {
+      console.warn("Requests/Orders fetch warning:", err);
     } finally {
       setLoading(false);
     }
