@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useSearchParams, Link } from 'react-router-dom';
+import RetailBoutiqueTemplate from './RetailBoutiqueTemplate';
 import {
   GraduationCap,
   Phone,
@@ -73,6 +74,39 @@ export default function TenantSiteRenderer() {
 
   // Show banner only if explicit ?preview=true is requested
   const showPreviewBanner = isPreviewParam || searchParams.has('ref');
+
+  // Detect template category (Retail / Saree / Boutique vs School / Education)
+  const templateSlug = siteData?.template_details?.slug || '';
+  const categorySlug = siteData?.template_details?.category_slug || '';
+  const isRetailTemplate = templateSlug.includes('urbancart') || 
+                           templateSlug.includes('retail') || 
+                           categorySlug === 'retail' || 
+                           (siteData?.business_type && siteData.business_type.toLowerCase().includes('garment')) ||
+                           (siteData?.business_type && siteData.business_type.toLowerCase().includes('saree')) ||
+                           (siteData?.organization_name && siteData.organization_name.toLowerCase().includes('vastralya'));
+
+  if (isRetailTemplate) {
+    return (
+      <div>
+        {showPreviewBanner && (
+          <div className="bg-slate-900 text-slate-300 px-4 py-2 text-xs flex flex-col sm:flex-row items-center justify-between gap-2 border-b border-slate-800">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span><strong>Preview Mode:</strong> Active on <code className="text-amber-400 font-mono">digital.aaradhyaenertech.com/{detectedSubdomain}</code></span>
+            </div>
+            <Link
+              to="/dashboard"
+              className="text-amber-400 hover:underline font-bold flex items-center gap-1"
+            >
+              <span>Return to Dashboard</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        )}
+        <RetailBoutiqueTemplate siteData={siteData} />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 font-sans selection:bg-amber-500 selection:text-white">
