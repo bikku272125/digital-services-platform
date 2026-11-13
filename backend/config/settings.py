@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'apps.orders.apps.OrdersConfig',
     'apps.poster_studio.apps.PosterStudioConfig',
     'apps.blog.apps.BlogConfig',
+    'apps.websites.apps.WebsitesConfig',
 ]
 
 MIDDLEWARE = [

@@ -16,6 +16,7 @@ api_patterns = [
     path('', include('apps.orders.urls')),
     path('', include('apps.poster_studio.urls')),
     path('', include('apps.blog.urls')),
+    path('', include('apps.websites.urls')),
 ]
 
 urlpatterns = [

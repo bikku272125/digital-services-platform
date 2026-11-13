@@ -8,13 +8,14 @@ export default function Navbar() {
 
   const navLinks = [
     { name: 'Home', path: '/' },
+    { name: 'Templates', path: '/templates', badge: 'WaaS' },
+    { name: 'Pricing', path: '/pricing' },
     { name: 'Services', path: '/services' },
     { name: 'News', path: '/news', badge: 'Live' },
     { name: 'Blog', path: '/blog' },
     // { name: 'Poster Studio', path: '/poster-studio', badge: 'New' },
-    { name: 'How It Works', path: '/how-it-works' },
+    { name: 'My Website', path: '/website-status' },
     { name: 'Portfolio', path: '/portfolio' },
-    { name: 'FAQ', path: '/faq' },
     { name: 'Contact', path: '/contact' },
   ];
 

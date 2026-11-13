@@ -78,4 +78,17 @@ export const blogAPI = {
   getPostBySlug: (slug) => apiClient.get(`/blog/posts/${slug}/`),
 };
 
+export const waasAPI = {
+  getCategories: () => apiClient.get('/websites/categories/'),
+  getPackages: () => apiClient.get('/websites/packages/'),
+  getTemplates: (params) => apiClient.get('/websites/templates/', { params }),
+  createOrder: (formData) => apiClient.post('/websites/orders/', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  }),
+  getOrderStatus: (params) => apiClient.get('/websites/orders/status/', { params }),
+  triggerExport: (orderRef, data) => apiClient.post(`/websites/orders/${orderRef}/export/`, data),
+  getAdminOrders: () => apiClient.get('/websites/admin/orders/'),
+  updateAdminOrder: (orderRef, data) => apiClient.patch(`/websites/admin/orders/${orderRef}/`, data),
+};
+
 export default apiClient;

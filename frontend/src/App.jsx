@@ -14,6 +14,10 @@ import { PrivacyPolicyPage, TermsPage, RefundPolicyPage } from './pages/LegalPag
 import BlogHome from './pages/blog/BlogHome';
 import BlogPostDetail from './pages/blog/BlogPostDetail';
 import NewsHome from './pages/news/NewsHome';
+import TemplatesPage from './pages/websites/TemplatesPage';
+import PricingPage from './pages/websites/PricingPage';
+import OrderWebsitePage from './pages/websites/OrderWebsitePage';
+import WebsiteStatusPage from './pages/websites/WebsiteStatusPage';
 import PosterStudioLanding from './pages/poster-studio/PosterStudioLanding';
 import PosterCategories from './pages/poster-studio/PosterCategories';
 import PosterTemplates from './pages/poster-studio/PosterTemplates';
@@ -47,6 +51,12 @@ export default function App() {
           {/* Real-time Trending News Radar */}
           <Route path="news" element={<NewsHome />} />
           <Route path="news/:category/:slug" element={<BlogPostDetail />} />
+
+          {/* Website-as-a-Service (WaaS) Modules */}
+          <Route path="templates" element={<TemplatesPage />} />
+          <Route path="pricing" element={<PricingPage />} />
+          <Route path="order-website" element={<OrderWebsitePage />} />
+          <Route path="website-status" element={<WebsiteStatusPage />} />
 
           {/* Poster Design Studio Routes (Commented out) */}
           {/*
