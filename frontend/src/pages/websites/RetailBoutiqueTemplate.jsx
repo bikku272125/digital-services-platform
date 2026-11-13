@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   ShoppingBag,
   Phone,
@@ -379,8 +380,15 @@ export default function RetailBoutiqueTemplate({ siteData }) {
           <p className="text-slate-400 text-xs max-w-md mx-auto">
             Your destination for Banarasi Sarees, Bridal Lehengas, Designer Kurtis, and Festive Menswear in {city}.
           </p>
-          <div className="pt-4 border-t border-slate-900 text-slate-600 text-[11px]">
-            © {new Date().getFullYear()} {shopName}. All rights reserved. Powered by Digital Services Platform.
+          <div className="pt-4 border-t border-slate-900 text-slate-500 text-[11px] flex flex-col sm:flex-row items-center justify-between gap-2">
+            <span>© {new Date().getFullYear()} {shopName}. All rights reserved. Powered by Digital Services Platform.</span>
+            <Link
+              to={siteData?.order_ref ? `/client-portal?ref=${siteData.order_ref}` : `/client-portal`}
+              className="text-slate-400 hover:text-white transition flex items-center gap-1 font-semibold"
+            >
+              <span>Client Admin Portal</span>
+              <ExternalLink className="w-3 h-3" />
+            </Link>
           </div>
         </div>
       </footer>

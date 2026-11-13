@@ -367,8 +367,15 @@ export default function TenantSiteRenderer() {
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 pt-6 border-t border-slate-800 text-center text-[11px] text-slate-500">
-          © {new Date().getFullYear()} {schoolName}. All rights reserved. Powered by Digital Services Platform.
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-slate-500">
+          <span>© {new Date().getFullYear()} {schoolName}. All rights reserved. Powered by Digital Services Platform.</span>
+          <Link
+            to={orderRef ? `/client-portal?ref=${orderRef}` : `/client-portal`}
+            className="text-slate-400 hover:text-white transition flex items-center gap-1 font-semibold"
+          >
+            <span>Client Admin Portal</span>
+            <ExternalLink className="w-3 h-3" />
+          </Link>
         </div>
       </footer>
 

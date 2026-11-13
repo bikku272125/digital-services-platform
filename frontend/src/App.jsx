@@ -19,6 +19,7 @@ import PricingPage from './pages/websites/PricingPage';
 import OrderWebsitePage from './pages/websites/OrderWebsitePage';
 import WebsiteStatusPage from './pages/websites/WebsiteStatusPage';
 import TenantSiteRenderer from './pages/websites/TenantSiteRenderer';
+import ClientAdminPortalPage from './pages/websites/ClientAdminPortalPage';
 import PosterStudioLanding from './pages/poster-studio/PosterStudioLanding';
 import PosterCategories from './pages/poster-studio/PosterCategories';
 import PosterTemplates from './pages/poster-studio/PosterTemplates';
@@ -59,6 +60,8 @@ export default function App() {
           <Route path="pricing" element={<PricingPage />} />
           <Route path="order-website" element={<OrderWebsitePage />} />
           <Route path="website-status" element={<WebsiteStatusPage />} />
+          <Route path="client-portal" element={<ClientAdminPortalPage />} />
+          <Route path="client-admin" element={<ClientAdminPortalPage />} />
 
           {/* Catch-all */}
           <Route path="*" element={<Navigate to="/" replace />} />
@@ -66,8 +69,11 @@ export default function App() {
 
         {/* Standalone Client Websites - Dedicated Full-Screen Outside RootLayout */}
         <Route path="drglobal" element={<TenantSiteRenderer />} />
+        <Route path="drglobal/admin" element={<ClientAdminPortalPage />} />
         <Route path="yadavfancy" element={<TenantSiteRenderer />} />
+        <Route path="yadavfancy/admin" element={<ClientAdminPortalPage />} />
         <Route path="sites/:subdomain" element={<TenantSiteRenderer />} />
+        <Route path="sites/:subdomain/admin" element={<ClientAdminPortalPage />} />
         <Route path="school/:subdomain" element={<TenantSiteRenderer />} />
         <Route path="client/:subdomain" element={<TenantSiteRenderer />} />
       </Routes>
