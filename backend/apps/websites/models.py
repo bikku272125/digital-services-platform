@@ -29,9 +29,10 @@ class WebsiteCategory(models.Model):
 
 class WebsitePackage(models.Model):
     """
-    Pricing tiers: Starter ₹2,999/yr, Business ₹5,999/yr, Professional ₹9,999/yr, Custom
+    Pricing tiers: Free Trial (7 Days), Starter ₹2,999/yr, Business ₹5,999/yr, Professional ₹9,999/yr, Custom
     """
     TIER_CHOICES = (
+        ('trial', '7-Day Free Trial'),
         ('starter', 'Starter'),
         ('business', 'Business'),
         ('professional', 'Professional'),
@@ -131,6 +132,7 @@ class WebsiteOrder(models.Model):
     
     # Subscription & Lifecycle
     status = models.CharField(max_length=30, choices=STATUS_CHOICES, default='pending')
+    is_trial = models.BooleanField(default=False, help_text="Is this order under the 7-day free trial")
     total_amount_inr = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     is_paid = models.BooleanField(default=False)
     payment_reference = models.CharField(max_length=100, blank=True)

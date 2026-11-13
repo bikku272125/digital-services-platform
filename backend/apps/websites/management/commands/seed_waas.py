@@ -32,6 +32,29 @@ class Command(BaseCommand):
         # 2. Packages & Pricing Tiers
         packages_data = [
             {
+                "tier": "trial",
+                "name": "7-Day Free Trial",
+                "price_inr": 0.00,
+                "billing_period": "7 days free",
+                "tagline": "Try your website risk-free with zero payment or credit card required.",
+                "is_popular": False,
+                "features": [
+                    "Full Ready-to-Test Website Preview",
+                    "Active Subdomain (yourname.aaradhyaenertech.com)",
+                    "Test All Pages & Contact Forms",
+                    "Mobile & Tablet View Verified",
+                    "No Credit Card Required",
+                    "1-Click Upgrade to Annual Plan",
+                ],
+                "subdomain_included": True,
+                "custom_domain_supported": False,
+                "ssl_included": True,
+                "hosting_included": True,
+                "pages_limit": 5,
+                "export_allowed": True,
+                "display_order": 0,
+            },
+            {
                 "tier": "starter",
                 "name": "Starter Website",
                 "price_inr": 2999.00,

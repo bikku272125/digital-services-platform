@@ -30,15 +30,15 @@ export default function PricingPage() {
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 text-xs font-bold uppercase tracking-wider mb-4 border border-indigo-200 dark:border-indigo-800">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 text-xs font-bold uppercase tracking-wider mb-4 border border-emerald-200 dark:border-emerald-800">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Transparent Annual Subscription Plans</span>
+            <span>7-Day Risk-Free Trial Available</span>
           </div>
           <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
             Website-as-a-Service Pricing
           </h1>
           <p className="text-slate-600 dark:text-slate-400 text-base sm:text-lg mt-3">
-            Everything your business needs: ready-made design, cloud hosting, free subdomain or custom domain, annual maintenance, and complete 100% data portability.
+            Test your website live on a dedicated subdomain for 7 days with zero cost. Upgrade to annual plans whenever you're ready.
           </p>
         </div>
 
@@ -49,7 +49,7 @@ export default function PricingPage() {
             <p className="text-xs font-semibold text-slate-400">Loading pricing plans...</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
             {packages.map((pkg) => {
               const isPopular = pkg.is_popular;
               return (
@@ -76,14 +76,14 @@ export default function PricingPage() {
                     <div className="mt-6 mb-6 pt-6 border-t border-slate-100 dark:border-slate-800">
                       <div className="flex items-baseline gap-1">
                         <span className="text-3xl sm:text-4xl font-black">
-                          ₹{Number(pkg.price_inr).toLocaleString('en-IN')}
+                          {Number(pkg.price_inr) === 0 ? 'FREE' : `₹${Number(pkg.price_inr).toLocaleString('en-IN')}`}
                         </span>
                         <span className={`text-xs font-medium ${isPopular ? 'text-slate-300' : 'text-slate-400'}`}>
-                          /{pkg.billing_period}
+                          {Number(pkg.price_inr) === 0 ? ' (7 Days)' : `/${pkg.billing_period}`}
                         </span>
                       </div>
-                      <p className={`text-[11px] mt-1 ${isPopular ? 'text-indigo-300' : 'text-indigo-600 font-semibold'}`}>
-                        Includes Hosting & SSL Certificate
+                      <p className={`text-[11px] mt-1 ${isPopular ? 'text-indigo-300' : (Number(pkg.price_inr) === 0 ? 'text-emerald-600 font-bold' : 'text-indigo-600 font-semibold')}`}>
+                        {Number(pkg.price_inr) === 0 ? 'No Credit Card Required' : 'Includes Hosting & SSL Certificate'}
                       </p>
                     </div>
 

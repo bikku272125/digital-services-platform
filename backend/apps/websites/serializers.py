@@ -57,7 +57,7 @@ class WebsiteOrderDetailSerializer(serializers.ModelSerializer):
             'id', 'order_ref', 'access_token', 'customer_name', 'customer_email',
             'customer_phone', 'organization_name', 'business_type', 'city',
             'package', 'package_details', 'template', 'template_details',
-            'is_custom_development', 'requested_subdomain', 'assigned_subdomain',
+            'is_custom_development', 'is_trial', 'requested_subdomain', 'assigned_subdomain',
             'custom_domain', 'requirements_note', 'uploaded_logo', 'uploaded_brochure',
             'status', 'total_amount_inr', 'is_paid', 'payment_reference',
             'subscription_start', 'subscription_expiry', 'deployed_url',
@@ -72,14 +72,22 @@ class WebsiteOrderCreateSerializer(serializers.ModelSerializer):
             'customer_name', 'customer_email', 'customer_phone',
             'organization_name', 'business_type', 'city',
             'package', 'template', 'is_custom_development',
-            'requested_subdomain', 'custom_domain',
+            'is_trial', 'requested_subdomain', 'custom_domain',
             'requirements_note', 'uploaded_logo', 'uploaded_brochure'
         ]
 
     def create(self, validated_data):
+        from django.utils import timezone
+        from datetime import timedelta
         package = validated_data.get('package')
         order = WebsiteOrder(**validated_data)
-        if package:
+        if package and package.tier == 'trial':
+            order.is_trial = True
+            order.total_amount_inr = 0.00
+            order.is_paid = True
+            order.subscription_start = timezone.now()
+            order.subscription_expiry = timezone.now() + timedelta(days=7)
+        elif package:
             order.total_amount_inr = package.price_inr
         order.save()
         return order

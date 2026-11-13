@@ -225,25 +225,35 @@ export default function OrderWebsitePage() {
               <span>Select Pricing Package</span>
             </h3>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
               {packages.map((pkg) => {
                 const isSelected = String(formData.package) === String(pkg.id);
+                const isTrial = pkg.tier === 'trial';
                 return (
                   <div
                     key={pkg.id}
                     onClick={() => setFormData(prev => ({ ...prev, package: pkg.id }))}
                     className={`cursor-pointer rounded-2xl p-4 border transition-all text-left flex flex-col justify-between ${
                       isSelected
-                        ? 'border-indigo-600 bg-indigo-50/50 dark:bg-indigo-950/30 ring-2 ring-indigo-500 shadow-sm'
+                        ? (isTrial ? 'border-emerald-600 bg-emerald-50/50 dark:bg-emerald-950/30 ring-2 ring-emerald-500 shadow-sm' : 'border-indigo-600 bg-indigo-50/50 dark:bg-indigo-950/30 ring-2 ring-indigo-500 shadow-sm')
                         : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
                     }`}
                   >
                     <div>
-                      <h4 className="font-bold text-sm text-slate-900 dark:text-white">{pkg.name}</h4>
+                      <div className="flex items-center justify-between">
+                        <h4 className="font-bold text-sm text-slate-900 dark:text-white">{pkg.name}</h4>
+                        {isTrial && (
+                          <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[9px] font-black uppercase">
+                            Free
+                          </span>
+                        )}
+                      </div>
                       <p className="text-[11px] text-slate-500 mt-1 line-clamp-2">{pkg.tagline}</p>
                     </div>
                     <div className="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700 flex items-baseline justify-between">
-                      <span className="font-black text-lg text-indigo-600">₹{Number(pkg.price_inr).toLocaleString('en-IN')}</span>
+                      <span className={`font-black text-lg ${isTrial ? 'text-emerald-600' : 'text-indigo-600'}`}>
+                        {Number(pkg.price_inr) === 0 ? 'FREE' : `₹${Number(pkg.price_inr).toLocaleString('en-IN')}`}
+                      </span>
                       <span className="text-[10px] text-slate-400">/{pkg.billing_period}</span>
                     </div>
                   </div>
