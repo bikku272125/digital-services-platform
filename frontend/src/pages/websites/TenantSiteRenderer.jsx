@@ -20,7 +20,7 @@ import {
 } from 'lucide-react';
 import { waasAPI } from '../../api/client';
 
-export default function TenantSiteRenderer() {
+export default function TenantSiteRenderer({ defaultSubdomain }) {
   const { subdomain } = useParams();
   const [searchParams] = useSearchParams();
   const orderRef = searchParams.get('ref');
@@ -32,7 +32,7 @@ export default function TenantSiteRenderer() {
   // Auto-detect if loaded via subdomain (e.g. drglobal.aaradhyaenertech.com)
   const currentHostname = window.location.hostname;
   const isSubdomainHost = currentHostname.includes('.aaradhyaenertech.com') && !currentHostname.startsWith('digital.') && !currentHostname.startsWith('www.');
-  const detectedSubdomain = isSubdomainHost ? currentHostname.split('.')[0] : (subdomain || 'drglobal');
+  const detectedSubdomain = isSubdomainHost ? currentHostname.split('.')[0] : (subdomain || defaultSubdomain || 'drglobal');
 
   useEffect(() => {
     window.scrollTo(0, 0);

@@ -68,10 +68,12 @@ export default function App() {
         </Route>
 
         {/* Standalone Client Websites - Dedicated Full-Screen Outside RootLayout */}
-        <Route path="drglobal" element={<TenantSiteRenderer />} />
+        <Route path="drglobal" element={<TenantSiteRenderer defaultSubdomain="drglobal" />} />
         <Route path="drglobal/admin" element={<ClientAdminPortalPage />} />
-        <Route path="yadavfancy" element={<TenantSiteRenderer />} />
+        <Route path="yadavfancy" element={<TenantSiteRenderer defaultSubdomain="yadavfancy" />} />
         <Route path="yadavfancy/admin" element={<ClientAdminPortalPage />} />
+        <Route path="yadavfancyvastralya" element={<TenantSiteRenderer defaultSubdomain="yadavfancyvastralya" />} />
+        <Route path="yadavfancyvastralya/admin" element={<ClientAdminPortalPage />} />
         <Route path="sites/:subdomain" element={<TenantSiteRenderer />} />
         <Route path="sites/:subdomain/admin" element={<ClientAdminPortalPage />} />
         <Route path="school/:subdomain" element={<TenantSiteRenderer />} />
