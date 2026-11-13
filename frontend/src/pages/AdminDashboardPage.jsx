@@ -111,14 +111,25 @@ export default function AdminDashboardPage() {
         ? { Authorization: `Basic ${tokenOverride}` }
         : getAuthHeaders();
 
-      const [reqRes, ordRes, waasRes] = await Promise.all([
-        apiClient.get('/admin/requests/', { headers }),
-        apiClient.get('/admin/orders/', { headers }),
-        apiClient.get('/websites/admin/orders/', { headers }),
+      // First fetch WaaS orders directly without blocking
+      try {
+        const waasRes = await apiClient.get('/websites/admin/orders/');
+        const wData = waasRes.data?.results || waasRes.data || [];
+        setWaasOrders(wData);
+        if (wData.length > 0 && !selectedWaasOrder) {
+          handleSelectWaasOrder(wData[0]);
+        }
+      } catch (wErr) {
+        console.error("Error fetching waas orders:", wErr);
+      }
+
+      // Then fetch secured requests & custom orders
+      const [reqRes, ordRes] = await Promise.all([
+        apiClient.get('/admin/requests/', { headers }).catch(() => ({ data: [] })),
+        apiClient.get('/admin/orders/', { headers }).catch(() => ({ data: [] })),
       ]);
       setRequests(reqRes.data.results || reqRes.data || []);
       setOrders(ordRes.data.results || ordRes.data || []);
-      setWaasOrders(waasRes.data?.results || waasRes.data || []);
     } catch (err) {
       if (err.response?.status === 401 || err.response?.status === 403) {
         handleLogout();
@@ -129,10 +140,8 @@ export default function AdminDashboardPage() {
   };
 
   useEffect(() => {
-    if (isAuthenticated) {
-      fetchDashboardData();
-    }
-  }, [isAuthenticated]);
+    fetchDashboardData();
+  }, []);
 
   const handleSelectWaasOrder = (wo) => {
     setSelectedWaasOrder(wo);
@@ -381,8 +390,8 @@ export default function AdminDashboardPage() {
                 return (
                   <div
                     key={wo.id}
-                    onClick={() => setSelectedWaasOrder(wo)}
-                    className={`p-4 rounded-2xl border cursor-pointer transition text-left space-y-2 ${
+                    onClick={() => handleSelectWaasOrder(wo)}
+                    className={`p-4 rounded-2xl border cursor-pointer transition text-left space-y-2.5 ${
                       isSelected
                         ? 'border-indigo-600 bg-indigo-50/60 shadow-sm'
                         : 'border-slate-200 bg-white hover:border-slate-300'
@@ -390,10 +399,10 @@ export default function AdminDashboardPage() {
                   >
                     <div className="flex items-center justify-between">
                       <span className="font-mono text-xs font-bold text-indigo-600">{wo.order_ref}</span>
-                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${
-                        wo.is_trial ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-700'
+                      <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase ${
+                        wo.is_trial ? 'bg-emerald-100 text-emerald-800' : (wo.paid_amount_inr > 0 ? 'bg-indigo-100 text-indigo-800' : 'bg-amber-100 text-amber-800')
                       }`}>
-                        {wo.is_trial ? '7-Day Trial' : (wo.package_details?.name || 'Package')}
+                        {wo.is_trial ? 'FREE TRIAL' : (wo.paid_amount_inr >= wo.total_amount_inr && wo.total_amount_inr > 0 ? 'PAID' : (wo.paid_amount_inr > 0 ? 'PARTIALLY PAID' : 'UNPAID'))}
                       </span>
                     </div>
 
@@ -402,9 +411,13 @@ export default function AdminDashboardPage() {
                       <p className="text-xs text-slate-500">{wo.customer_name} • {wo.customer_phone}</p>
                     </div>
 
-                    <div className="flex items-center justify-between pt-2 border-t border-slate-100 text-[11px] text-slate-400">
-                      <span>Subdomain: {wo.requested_subdomain || 'Auto'}</span>
-                      <span className="font-semibold text-slate-700">{wo.status}</span>
+                    <div className="flex items-center justify-between pt-2 border-t border-slate-100 text-[11px]">
+                      <span className="text-slate-400">Total: <strong className="text-slate-800">₹{Number(wo.total_amount_inr).toLocaleString('en-IN')}</strong></span>
+                      <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold uppercase ${
+                        wo.status === 'active' ? 'bg-emerald-50 text-emerald-700' : 'bg-slate-100 text-slate-700'
+                      }`}>
+                        {wo.status}
+                      </span>
                     </div>
                   </div>
                 );
