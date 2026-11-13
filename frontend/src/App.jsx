@@ -60,25 +60,15 @@ export default function App() {
           <Route path="order-website" element={<OrderWebsitePage />} />
           <Route path="website-status" element={<WebsiteStatusPage />} />
 
-          {/* Subdomain, Direct Path & Customer Preview Routes */}
-          <Route path="sites/:subdomain" element={<TenantSiteRenderer />} />
-          <Route path="school/:subdomain" element={<TenantSiteRenderer />} />
-          <Route path="client/:subdomain" element={<TenantSiteRenderer />} />
-          <Route path="drglobal" element={<TenantSiteRenderer />} />
-
-          {/* Poster Design Studio Routes (Commented out) */}
-          {/*
-          <Route path="poster-studio" element={<PosterStudioLanding />} />
-          <Route path="poster-studio/categories" element={<PosterCategories />} />
-          <Route path="poster-studio/templates" element={<PosterTemplates />} />
-          <Route path="poster-studio/templates/:slug" element={<PosterTemplateDetail />} />
-          <Route path="poster-studio/editor" element={<PosterLiveEditor />} />
-          <Route path="poster-studio/order" element={<PosterOrderForm />} />
-          <Route path="poster-studio/order-success" element={<PosterOrderSuccess />} />
-          */}
-
+          {/* Catch-all */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
+
+        {/* Standalone Client Websites - Dedicated Full-Screen Outside RootLayout */}
+        <Route path="drglobal" element={<TenantSiteRenderer />} />
+        <Route path="sites/:subdomain" element={<TenantSiteRenderer />} />
+        <Route path="school/:subdomain" element={<TenantSiteRenderer />} />
+        <Route path="client/:subdomain" element={<TenantSiteRenderer />} />
       </Routes>
     </BrowserRouter>
   );
