@@ -145,7 +145,7 @@ class Command(BaseCommand):
                 "title": "EduPrime Academy & School",
                 "slug": "eduprime-academy-school",
                 "description": "Modern educational website featuring course catalogues, admission notice board, faculty profiles, and student inquiry portal.",
-                "thumbnail_url": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80",
+                "thumbnail_url": "https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1200&q=80",
                 "demo_url": "https://digital.aaradhyaenertech.com/templates/demo/eduprime",
                 "features": ["Course Syllabus Downloads", "Online Admission Form", "Notice Board & Announcements", "Photo & Event Gallery"],
                 "tech_stack": "React / Tailwind / Node",

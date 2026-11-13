@@ -280,13 +280,19 @@ export default function OrderWebsitePage() {
 
             {selectedTemplateObj && (
               <div className="p-4 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/20 border border-indigo-200 dark:border-indigo-900 flex items-center gap-4 text-xs">
-                <img
-                  src={selectedTemplateObj.thumbnail_url}
-                  alt={selectedTemplateObj.title}
-                  className="w-16 h-12 object-cover rounded-lg shrink-0"
-                />
+                <div className="w-16 h-12 rounded-lg bg-slate-200 dark:bg-slate-800 overflow-hidden shrink-0 flex items-center justify-center">
+                  <img
+                    src={selectedTemplateObj.thumbnail_url}
+                    alt={selectedTemplateObj.title}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=600&q=80';
+                    }}
+                  />
+                </div>
                 <div>
-                  <h5 className="font-bold">{selectedTemplateObj.title}</h5>
+                  <h5 className="font-bold text-slate-900 dark:text-white">{selectedTemplateObj.title}</h5>
                   <p className="text-slate-500 text-[11px] mt-0.5 line-clamp-1">{selectedTemplateObj.description}</p>
                 </div>
               </div>
