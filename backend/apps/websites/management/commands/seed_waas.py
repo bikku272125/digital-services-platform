@@ -239,4 +239,36 @@ class Command(BaseCommand):
                     defaults={**t, "category": cat}
                 )
         self.stdout.write(f"✓ Seeded {len(templates_data)} Website Templates")
+
+        # 4. Seed / Ensure DR GLOBAL SCHOOL Test Order
+        edu_pkg = WebsitePackage.objects.filter(tier='trial').first() or WebsitePackage.objects.first()
+        edu_tpl = WebsiteTemplate.objects.filter(slug='eduprime-academy').first()
+
+        order, created = WebsiteOrder.objects.update_or_create(
+            order_ref="WAAS-6FE2B8F0",
+            defaults={
+                "customer_name": "Dr. Brijesh Kumar",
+                "customer_email": "bikkuyadav9190@gmail.com",
+                "customer_phone": "+91 9369928423",
+                "organization_name": "DR GLOBAL SCHOOL",
+                "package": edu_pkg,
+                "template": edu_tpl,
+                "requested_subdomain": "drglobal",
+                "city": "Khalilabad, Sant Kabir Nagar, UP",
+                "requirements_note": "Complete CBSE School Portal with online admission registration, fee structure brochure, faculty matrix, and direct WhatsApp contact for principal office.",
+                "total_amount_inr": 0.00,
+                "paid_amount_inr": 0.00,
+                "is_trial": True,
+                "is_active": True,
+                "is_delivered": True,
+                "status": "active",
+                "payment_status": "free_trial",
+                "deployed_url": "https://digital.aaradhyaenertech.com/drglobal",
+            }
+        )
+        if created:
+            self.stdout.write(self.style.SUCCESS("✓ Seeded sample order DR GLOBAL SCHOOL (WAAS-6FE2B8F0)"))
+        else:
+            self.stdout.write("✓ Verified DR GLOBAL SCHOOL order exists")
+
         self.stdout.write(self.style.SUCCESS("Website-as-a-Service seeding complete!"))
