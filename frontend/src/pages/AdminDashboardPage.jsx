@@ -406,9 +406,21 @@ export default function AdminDashboardPage() {
                   <div className="p-4 rounded-2xl border border-slate-200 space-y-2">
                     <div className="flex justify-between">
                       <span className="text-slate-500">Requested Subdomain:</span>
-                      <span className="font-mono font-bold text-indigo-600">
-                        {selectedWaasOrder.requested_subdomain ? `${selectedWaasOrder.requested_subdomain}.aaradhyaenertech.com` : 'None'}
-                      </span>
+                      <div className="text-right">
+                        <span className="font-mono font-bold text-indigo-600 block">
+                          {selectedWaasOrder.requested_subdomain ? `${selectedWaasOrder.requested_subdomain}.aaradhyaenertech.com` : 'None'}
+                        </span>
+                        {selectedWaasOrder.requested_subdomain && (
+                          <Link
+                            to={`/sites/${selectedWaasOrder.requested_subdomain}?ref=${selectedWaasOrder.order_ref}`}
+                            target="_blank"
+                            className="inline-flex items-center gap-1 text-[11px] text-emerald-600 font-bold hover:underline mt-0.5"
+                          >
+                            <span>Open Instant Vercel Preview</span>
+                            <ExternalLink className="w-3 h-3" />
+                          </Link>
+                        )}
+                      </div>
                     </div>
                     {selectedWaasOrder.custom_domain && (
                       <div className="flex justify-between">

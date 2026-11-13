@@ -18,6 +18,7 @@ import TemplatesPage from './pages/websites/TemplatesPage';
 import PricingPage from './pages/websites/PricingPage';
 import OrderWebsitePage from './pages/websites/OrderWebsitePage';
 import WebsiteStatusPage from './pages/websites/WebsiteStatusPage';
+import TenantSiteRenderer from './pages/websites/TenantSiteRenderer';
 import PosterStudioLanding from './pages/poster-studio/PosterStudioLanding';
 import PosterCategories from './pages/poster-studio/PosterCategories';
 import PosterTemplates from './pages/poster-studio/PosterTemplates';
@@ -58,6 +59,9 @@ export default function App() {
           <Route path="pricing" element={<PricingPage />} />
           <Route path="order-website" element={<OrderWebsitePage />} />
           <Route path="website-status" element={<WebsiteStatusPage />} />
+
+          {/* Subdomain & Customer Preview Route without custom DNS */}
+          <Route path="sites/:subdomain" element={<TenantSiteRenderer />} />
 
           {/* Poster Design Studio Routes (Commented out) */}
           {/*
