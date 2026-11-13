@@ -166,3 +166,53 @@ class AdminWebsiteOrderUpdateView(generics.UpdateAPIView):
     permission_classes = [permissions.AllowAny]
     queryset = WebsiteOrder.objects.all()
     lookup_field = 'order_ref'
+
+    def patch(self, request, *args, **kwargs):
+        order = self.get_object()
+        data = request.data
+
+        # Update status & delivery
+        if 'status' in data:
+            order.status = data['status']
+        if 'is_delivered' in data:
+            order.is_delivered = bool(data['is_delivered'])
+        if 'is_active' in data:
+            order.is_active = bool(data['is_active'])
+        if 'deployed_url' in data:
+            order.deployed_url = data['deployed_url']
+        if 'assigned_subdomain' in data:
+            order.assigned_subdomain = data['assigned_subdomain']
+
+        # Update payment breakdown: free, full, partially paid
+        if 'paid_amount_inr' in data:
+            try:
+                order.paid_amount_inr = float(data['paid_amount_inr'])
+            except (ValueError, TypeError):
+                pass
+        if 'total_amount_inr' in data:
+            try:
+                order.total_amount_inr = float(data['total_amount_inr'])
+            except (ValueError, TypeError):
+                pass
+
+        if 'payment_status' in data:
+            order.payment_status = data['payment_status']
+        else:
+            # Auto-calculate payment status from amounts
+            if order.is_trial:
+                order.payment_status = 'free_trial'
+            elif order.paid_amount_inr >= order.total_amount_inr and order.total_amount_inr > 0:
+                order.payment_status = 'fully_paid'
+                order.is_paid = True
+            elif order.paid_amount_inr > 0:
+                order.payment_status = 'partially_paid'
+                order.is_paid = False
+            else:
+                order.payment_status = 'unpaid'
+                order.is_paid = False
+
+        if 'admin_notes' in data:
+            order.admin_notes = data['admin_notes']
+
+        order.save()
+        return Response(WebsiteOrderDetailSerializer(order).data)

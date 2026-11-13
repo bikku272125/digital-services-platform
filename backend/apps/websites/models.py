@@ -134,6 +134,18 @@ class WebsiteOrder(models.Model):
     status = models.CharField(max_length=30, choices=STATUS_CHOICES, default='pending')
     is_trial = models.BooleanField(default=False, help_text="Is this order under the 7-day free trial")
     total_amount_inr = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    paid_amount_inr = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, help_text="Amount received from client so far")
+    payment_status = models.CharField(
+        max_length=30,
+        choices=(
+            ('free_trial', 'Free Trial (₹0)'),
+            ('unpaid', 'Unpaid (₹0 received)'),
+            ('partially_paid', 'Partially Paid (Advance Received)'),
+            ('fully_paid', 'Fully Paid'),
+        ),
+        default='free_trial',
+        help_text="Track full, partial or trial payment status"
+    )
     is_paid = models.BooleanField(default=False)
     payment_reference = models.CharField(max_length=100, blank=True)
     subscription_start = models.DateTimeField(null=True, blank=True)
@@ -141,6 +153,8 @@ class WebsiteOrder(models.Model):
     
     # Admin Deployment Info
     deployed_url = models.URLField(max_length=500, blank=True)
+    is_delivered = models.BooleanField(default=False, help_text="Is the website finished and delivered to client")
+    is_active = models.BooleanField(default=True, help_text="Active or paused / inactive")
     admin_notes = models.TextField(blank=True)
     
     created_at = models.DateTimeField(auto_now_add=True)

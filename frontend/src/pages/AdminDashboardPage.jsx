@@ -46,6 +46,20 @@ export default function AdminDashboardPage() {
   const [selectedRequest, setSelectedRequest] = useState(null);
   const [selectedOrder, setSelectedOrder] = useState(null);
 
+  // WaaS Operations Control State
+  const [waasForm, setWaasForm] = useState({
+    status: 'pending',
+    is_active: true,
+    is_delivered: false,
+    deployed_url: '',
+    total_amount_inr: 0,
+    paid_amount_inr: 0,
+    payment_status: 'free_trial',
+    admin_notes: '',
+  });
+  const [updatingWaas, setUpdatingWaas] = useState(false);
+  const [waasUpdateMsg, setWaasUpdateMsg] = useState('');
+
   // Quote Form in Modal / Drawer
   const [quoteForm, setQuoteForm] = useState({
     amount: '',
@@ -100,7 +114,7 @@ export default function AdminDashboardPage() {
       const [reqRes, ordRes, waasRes] = await Promise.all([
         apiClient.get('/admin/requests/', { headers }),
         apiClient.get('/admin/orders/', { headers }),
-        apiClient.get('/websites/admin/orders/', { headers }).catch(() => ({ data: [] })),
+        apiClient.get('/websites/admin/orders/', { headers }),
       ]);
       setRequests(reqRes.data.results || reqRes.data || []);
       setOrders(ordRes.data.results || ordRes.data || []);
@@ -119,6 +133,45 @@ export default function AdminDashboardPage() {
       fetchDashboardData();
     }
   }, [isAuthenticated]);
+
+  const handleSelectWaasOrder = (wo) => {
+    setSelectedWaasOrder(wo);
+    setWaasUpdateMsg('');
+    setWaasForm({
+      status: wo.status || 'pending',
+      is_active: wo.is_active !== undefined ? wo.is_active : true,
+      is_delivered: wo.is_delivered || false,
+      deployed_url: wo.deployed_url || (wo.requested_subdomain ? `https://digital.aaradhyaenertech.com/${wo.requested_subdomain}` : ''),
+      total_amount_inr: wo.total_amount_inr || 0,
+      paid_amount_inr: wo.paid_amount_inr || 0,
+      payment_status: wo.payment_status || (wo.is_trial ? 'free_trial' : 'unpaid'),
+      admin_notes: wo.admin_notes || '',
+    });
+  };
+
+  const handleUpdateWaasOrder = async (e) => {
+    e.preventDefault();
+    if (!selectedWaasOrder) return;
+    setUpdatingWaas(true);
+    setWaasUpdateMsg('');
+
+    try {
+      const headers = getAuthHeaders();
+      const res = await apiClient.patch(
+        `/websites/admin/orders/${selectedWaasOrder.order_ref}/`,
+        waasForm,
+        { headers }
+      );
+      setSelectedWaasOrder(res.data);
+      setWaasUpdateMsg('Order settings, delivery & payment updated successfully!');
+      fetchDashboardData();
+    } catch (err) {
+      console.error(err);
+      alert('Failed to update order: ' + (err.message || 'Unknown error'));
+    } finally {
+      setUpdatingWaas(false);
+    }
+  };
 
   const handleCreateQuote = async (e) => {
     e.preventDefault();
@@ -486,6 +539,165 @@ export default function AdminDashboardPage() {
                     </div>
                   </div>
                 )}
+
+                {/* Operations & Payment Controls Form */}
+                <form onSubmit={handleUpdateWaasOrder} className="pt-6 border-t border-slate-200 space-y-6">
+                  <div className="flex items-center justify-between">
+                    <h4 className="font-extrabold text-sm text-slate-900 flex items-center gap-2">
+                      <Sparkles className="w-4 h-4 text-indigo-600" />
+                      <span>Fulfillment, Delivery & Payment Controls</span>
+                    </h4>
+                    {waasUpdateMsg && (
+                      <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+                        {waasUpdateMsg}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+                    <div>
+                      <label className="block font-bold text-slate-700 mb-1">Fulfillment Status</label>
+                      <select
+                        value={waasForm.status}
+                        onChange={(e) => setWaasForm({ ...waasForm, status: e.target.value })}
+                        className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white font-medium focus:ring-2 focus:ring-indigo-500"
+                      >
+                        <option value="pending">Pending (Order Received)</option>
+                        <option value="under_review">Under Review</option>
+                        <option value="in_development">In Development</option>
+                        <option value="deployed_preview">Deployed Preview</option>
+                        <option value="active">Active & Live</option>
+                        <option value="renewal_due">Renewal Due</option>
+                        <option value="expired">Subscription Expired</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block font-bold text-slate-700 mb-1">Site Delivery State</label>
+                      <select
+                        value={waasForm.is_delivered ? 'delivered' : 'not_delivered'}
+                        onChange={(e) => setWaasForm({ ...waasForm, is_delivered: e.target.value === 'delivered' })}
+                        className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white font-medium focus:ring-2 focus:ring-indigo-500"
+                      >
+                        <option value="not_delivered">Not Delivered Yet</option>
+                        <option value="delivered">Delivered to Client</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block font-bold text-slate-700 mb-1">Site State (Active / Paused)</label>
+                      <select
+                        value={waasForm.is_active ? 'active' : 'paused'}
+                        onChange={(e) => setWaasForm({ ...waasForm, is_active: e.target.value === 'active' })}
+                        className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white font-medium focus:ring-2 focus:ring-indigo-500"
+                      >
+                        <option value="active">Active (Online)</option>
+                        <option value="paused">Inactive / Paused</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Payment & Financial Ledger */}
+                  <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
+                    <h5 className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+                      <DollarSign className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>Payment & Accounting Tracking</span>
+                    </h5>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 text-xs">
+                      <div>
+                        <label className="block font-semibold text-slate-500 mb-1">Total Agreed Price (₹)</label>
+                        <input
+                          type="number"
+                          value={waasForm.total_amount_inr}
+                          onChange={(e) => setWaasForm({ ...waasForm, total_amount_inr: e.target.value })}
+                          className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white font-bold"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block font-semibold text-slate-500 mb-1">Amount Paid So Far (₹)</label>
+                        <input
+                          type="number"
+                          value={waasForm.paid_amount_inr}
+                          onChange={(e) => setWaasForm({ ...waasForm, paid_amount_inr: e.target.value })}
+                          className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white font-bold text-emerald-600"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block font-semibold text-slate-500 mb-1">Remaining Balance</label>
+                        <div className="px-3 py-2 rounded-xl bg-slate-200 text-slate-900 font-extrabold text-sm">
+                          ₹{Math.max(0, (Number(waasForm.total_amount_inr) || 0) - (Number(waasForm.paid_amount_inr) || 0)).toLocaleString('en-IN')}
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block font-semibold text-slate-500 mb-1">Payment Status</label>
+                        <select
+                          value={waasForm.payment_status}
+                          onChange={(e) => setWaasForm({ ...waasForm, payment_status: e.target.value })}
+                          className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white font-bold focus:ring-2 focus:ring-indigo-500"
+                        >
+                          <option value="free_trial">Free Trial (₹0)</option>
+                          <option value="unpaid">Unpaid (₹0 received)</option>
+                          <option value="partially_paid">Partially Paid (Advance)</option>
+                          <option value="fully_paid">Fully Paid</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Live URL & Notes */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                    <div>
+                      <label className="block font-bold text-slate-700 mb-1">Client Official Website URL</label>
+                      <input
+                        type="url"
+                        placeholder="https://digital.aaradhyaenertech.com/drglobal"
+                        value={waasForm.deployed_url}
+                        onChange={(e) => setWaasForm({ ...waasForm, deployed_url: e.target.value })}
+                        className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white font-mono text-xs"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block font-bold text-slate-700 mb-1">Admin Internal Notes</label>
+                      <input
+                        type="text"
+                        placeholder="e.g. ₹1000 cash advance received, logo customized, pending photo upload"
+                        value={waasForm.admin_notes}
+                        onChange={(e) => setWaasForm({ ...waasForm, admin_notes: e.target.value })}
+                        className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-white text-xs"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Save Button */}
+                  <div className="flex items-center justify-between pt-2">
+                    <Link
+                      to={`/drglobal`}
+                      target="_blank"
+                      className="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 font-bold text-xs hover:bg-slate-50 transition flex items-center gap-1.5"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5 text-indigo-600" />
+                      <span>Open Live Fullscreen Site</span>
+                    </Link>
+
+                    <button
+                      type="submit"
+                      disabled={updatingWaas}
+                      className="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs uppercase tracking-wider transition shadow-sm hover:shadow flex items-center gap-2 disabled:opacity-50"
+                    >
+                      {updatingWaas ? (
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      ) : (
+                        <CheckCircle className="w-4 h-4" />
+                      )}
+                      <span>Save Order Status & Payments</span>
+                    </button>
+                  </div>
+                </form>
 
               </div>
             ) : (

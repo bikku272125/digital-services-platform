@@ -50,6 +50,7 @@ class WebsiteOrderDetailSerializer(serializers.ModelSerializer):
     package_details = WebsitePackageSerializer(source='package', read_only=True)
     template_details = WebsiteTemplateListSerializer(source='template', read_only=True)
     export_requests = WebsiteExportRequestSerializer(many=True, read_only=True)
+    remaining_balance_inr = serializers.SerializerMethodField()
 
     class Meta:
         model = WebsiteOrder
@@ -59,10 +60,18 @@ class WebsiteOrderDetailSerializer(serializers.ModelSerializer):
             'package', 'package_details', 'template', 'template_details',
             'is_custom_development', 'is_trial', 'requested_subdomain', 'assigned_subdomain',
             'custom_domain', 'requirements_note', 'uploaded_logo', 'uploaded_brochure',
-            'status', 'total_amount_inr', 'is_paid', 'payment_reference',
+            'status', 'total_amount_inr', 'paid_amount_inr', 'remaining_balance_inr',
+            'payment_status', 'is_paid', 'payment_reference',
             'subscription_start', 'subscription_expiry', 'deployed_url',
+            'is_delivered', 'is_active',
             'admin_notes', 'export_requests', 'created_at', 'updated_at'
         ]
+
+    def get_remaining_balance_inr(self, obj):
+        total = obj.total_amount_inr or 0
+        paid = obj.paid_amount_inr or 0
+        rem = total - paid
+        return max(0, rem)
 
 
 class WebsiteOrderCreateSerializer(serializers.ModelSerializer):
