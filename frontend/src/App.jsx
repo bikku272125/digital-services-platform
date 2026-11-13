@@ -60,8 +60,11 @@ export default function App() {
           <Route path="order-website" element={<OrderWebsitePage />} />
           <Route path="website-status" element={<WebsiteStatusPage />} />
 
-          {/* Subdomain & Customer Preview Route without custom DNS */}
+          {/* Subdomain, Direct Path & Customer Preview Routes */}
           <Route path="sites/:subdomain" element={<TenantSiteRenderer />} />
+          <Route path="school/:subdomain" element={<TenantSiteRenderer />} />
+          <Route path="client/:subdomain" element={<TenantSiteRenderer />} />
+          <Route path="drglobal" element={<TenantSiteRenderer />} />
 
           {/* Poster Design Studio Routes (Commented out) */}
           {/*

@@ -2,6 +2,7 @@ from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
 from django.utils import timezone
 from datetime import timedelta
 from .models import WebsiteCategory, WebsitePackage, WebsiteTemplate, WebsiteOrder, WebsiteExportRequest
@@ -65,7 +66,11 @@ class WebsiteOrderCreateView(generics.CreateAPIView):
 
 class WebsiteOrderStatusView(APIView):
     """
-    Lookup order by order_ref and customer email or access_token
+    Lookup order by order_ref, subdomain slug, customer email, or access_token.
+    Enables instant resolution for:
+    - Path mode: /sites/:subdomain or /:subdomain
+    - Wildcard subdomain: drglobal.aaradhyaenertech.com
+    - Custom domain: www.drglobalschool.in
     """
     permission_classes = [permissions.AllowAny]
 
@@ -73,11 +78,27 @@ class WebsiteOrderStatusView(APIView):
         ref = request.query_params.get('ref')
         token = request.query_params.get('token')
         email = request.query_params.get('email')
-
-        if not ref and not token:
-            return Response({"error": "Order reference or access token is required."}, status=400)
+        subdomain = request.query_params.get('subdomain')
+        domain = request.query_params.get('domain')
 
         qs = WebsiteOrder.objects.all().select_related('package', 'template', 'template__category')
+
+        if subdomain:
+            order = qs.filter(
+                Q(requested_subdomain__iexact=subdomain) |
+                Q(assigned_subdomain__iexact=subdomain)
+            ).first()
+            if order:
+                return Response(WebsiteOrderDetailSerializer(order).data)
+
+        if domain:
+            order = qs.filter(custom_domain__iexact=domain).first()
+            if order:
+                return Response(WebsiteOrderDetailSerializer(order).data)
+
+        if not ref and not token:
+            return Response({"error": "Order reference, subdomain, or access token is required."}, status=400)
+
         if token:
             order = get_object_or_404(qs, access_token=token)
         else:

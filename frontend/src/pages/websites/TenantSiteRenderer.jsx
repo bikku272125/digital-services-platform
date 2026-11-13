@@ -23,20 +23,29 @@ export default function TenantSiteRenderer() {
   const { subdomain } = useParams();
   const [searchParams] = useSearchParams();
   const orderRef = searchParams.get('ref');
+  const isPreviewParam = searchParams.get('preview') === 'true';
 
   const [siteData, setSiteData] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Auto-detect if loaded via subdomain (e.g. drglobal.aaradhyaenertech.com)
+  const currentHostname = window.location.hostname;
+  const isSubdomainHost = currentHostname.includes('.aaradhyaenertech.com') && !currentHostname.startsWith('digital.') && !currentHostname.startsWith('www.');
+  const detectedSubdomain = isSubdomainHost ? currentHostname.split('.')[0] : (subdomain || 'drglobal');
+
   useEffect(() => {
     window.scrollTo(0, 0);
-    // Fetch order either by subdomain or ref
     const params = {};
-    if (orderRef) params.ref = orderRef;
+    if (orderRef) {
+      params.ref = orderRef;
+    } else if (detectedSubdomain) {
+      params.subdomain = detectedSubdomain;
+    }
 
     waasAPI.getOrderStatus(params)
       .then(res => setSiteData(res.data))
       .catch(() => {
-        // Fallback default demo data if accessed purely as preview
+        // Fallback default demo data
         setSiteData({
           organization_name: "DR GLOBAL SCHOOL",
           city: "Khalilabad, Sant Kabir Nagar, UP",
@@ -47,7 +56,7 @@ export default function TenantSiteRenderer() {
         });
       })
       .finally(() => setLoading(false));
-  }, [subdomain, orderRef]);
+  }, [detectedSubdomain, orderRef]);
 
   if (loading) {
     return (
@@ -62,23 +71,28 @@ export default function TenantSiteRenderer() {
   const city = siteData?.city || "Khalilabad, UP";
   const logo = siteData?.uploaded_logo || "";
 
+  // Show banner only if explicit ?preview=true is requested
+  const showPreviewBanner = isPreviewParam || searchParams.has('ref');
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 font-sans selection:bg-amber-500 selection:text-white">
       
-      {/* Top Demo Notification Banner */}
-      <div className="bg-slate-900 text-slate-300 px-4 py-2 text-xs flex flex-col sm:flex-row items-center justify-between gap-2 border-b border-slate-800">
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span><strong>Live Vercel Preview Mode:</strong> Subdomain Reserved: <code className="text-amber-400 font-mono">drglobal.aaradhyaenertech.com</code></span>
+      {/* Optional Preview Notification Banner (Only shows when in admin preview mode) */}
+      {showPreviewBanner && (
+        <div className="bg-slate-900 text-slate-300 px-4 py-2 text-xs flex flex-col sm:flex-row items-center justify-between gap-2 border-b border-slate-800">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span><strong>Preview Mode:</strong> Active on <code className="text-amber-400 font-mono">digital.aaradhyaenertech.com/{detectedSubdomain}</code></span>
+          </div>
+          <Link
+            to="/dashboard"
+            className="text-amber-400 hover:underline font-bold flex items-center gap-1"
+          >
+            <span>Return to Dashboard</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
         </div>
-        <Link
-          to="/dashboard"
-          className="text-amber-400 hover:underline font-bold flex items-center gap-1"
-        >
-          <span>Return to Admin Dashboard</span>
-          <ArrowRight className="w-3.5 h-3.5" />
-        </Link>
-      </div>
+      )}
 
       {/* Header / Navigation */}
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm">
