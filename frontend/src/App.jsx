@@ -39,6 +39,7 @@ export default function App() {
           <Route path="portfolio" element={<PortfolioPage />} />
           <Route path="faq" element={<FAQPage />} />
           <Route path="contact" element={<ContactPage />} />
+          <Route path="dashboard" element={<AdminDashboardPage />} />
           <Route path="admin-dashboard" element={<AdminDashboardPage />} />
           <Route path="privacy-policy" element={<PrivacyPolicyPage />} />
           <Route path="terms-conditions" element={<TermsPage />} />

@@ -29,15 +29,15 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo & Brand */}
-          <Link to="/" className="flex items-center space-x-2.5 group">
-            <div className="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-sm group-hover:bg-indigo-700 transition">
+          <Link to="/" className="flex items-center space-x-2.5 group shrink-0">
+            <div className="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center text-white shadow-sm group-hover:bg-indigo-700 transition">
               <Layers className="w-5 h-5" />
             </div>
-            <div>
-              <span className="text-lg font-bold text-slate-900 tracking-tight">
+            <div className="leading-tight">
+              <span className="text-base font-bold text-slate-900 tracking-tight whitespace-nowrap">
                 Digital Services<span className="text-indigo-600">.</span>
               </span>
-              <p className="text-[10px] text-slate-500 font-medium tracking-wide uppercase">On-Demand Studio</p>
+              <p className="text-[9px] text-slate-500 font-medium tracking-wide uppercase">On-Demand Studio</p>
             </div>
           </Link>
 
@@ -67,12 +67,6 @@ export default function Navbar() {
 
           {/* CTAs */}
           <div className="hidden lg:flex items-center space-x-2 xl:space-x-3 shrink-0">
-            <Link
-              to="/admin-dashboard"
-              className="text-xs font-semibold text-slate-600 hover:text-indigo-600 px-3 py-2 rounded-lg hover:bg-slate-50 transition whitespace-nowrap"
-            >
-              Admin
-            </Link>
             <Link
               to="/request"
               className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700 transition shadow-sm hover:shadow whitespace-nowrap"
@@ -113,13 +107,6 @@ export default function Navbar() {
             </Link>
           ))}
           <div className="pt-2 border-t border-slate-100 flex flex-col gap-2">
-            <Link
-              to="/admin-dashboard"
-              onClick={() => setIsOpen(false)}
-              className="w-full flex items-center justify-center px-4 py-3 rounded-xl border border-slate-200 text-slate-700 font-semibold text-sm hover:bg-slate-50 transition"
-            >
-              Admin Dashboard
-            </Link>
             <Link
               to="/request"
               onClick={() => setIsOpen(false)}
