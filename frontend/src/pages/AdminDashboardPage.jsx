@@ -407,9 +407,9 @@ export default function AdminDashboardPage() {
                     <div className="flex items-center justify-between">
                       <span className="font-mono text-xs font-bold text-indigo-600">{wo.order_ref}</span>
                       <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase ${
-                        wo.is_trial ? 'bg-emerald-100 text-emerald-800' : (wo.paid_amount_inr > 0 ? 'bg-indigo-100 text-indigo-800' : 'bg-amber-100 text-amber-800')
+                        (wo.is_trial || wo.payment_status === 'free_trial') ? 'bg-emerald-100 text-emerald-800' : (wo.paid_amount_inr > 0 ? 'bg-indigo-100 text-indigo-800' : 'bg-amber-100 text-amber-800')
                       }`}>
-                        {wo.is_trial ? 'FREE TRIAL' : (wo.paid_amount_inr >= wo.total_amount_inr && wo.total_amount_inr > 0 ? 'PAID' : (wo.paid_amount_inr > 0 ? 'PARTIALLY PAID' : 'UNPAID'))}
+                        {(wo.is_trial || wo.payment_status === 'free_trial') ? 'FREE TRIAL' : (wo.paid_amount_inr >= wo.total_amount_inr && wo.total_amount_inr > 0 ? 'PAID' : (wo.paid_amount_inr > 0 ? 'PARTIALLY PAID' : 'UNPAID'))}
                       </span>
                     </div>
 
