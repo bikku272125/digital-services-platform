@@ -25,7 +25,8 @@ import {
   Calendar,
   Layers,
   Globe,
-  Download
+  Download,
+  Sparkles
 } from 'lucide-react';
 
 export default function AdminDashboardPage() {
