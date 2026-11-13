@@ -172,6 +172,12 @@ class AdminWebsiteOrderUpdateView(generics.RetrieveUpdateDestroyAPIView):
         data = request.data
 
         # Update status & delivery
+        if 'template' in data:
+            order.template_id = data['template']
+        if 'template_id' in data:
+            order.template_id = data['template_id']
+        if 'requested_subdomain' in data:
+            order.requested_subdomain = data['requested_subdomain']
         if 'status' in data:
             order.status = data['status']
         if 'is_delivered' in data:
