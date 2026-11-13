@@ -26,7 +26,8 @@ import {
   Layers,
   Globe,
   Download,
-  Sparkles
+  Sparkles,
+  Trash2
 } from 'lucide-react';
 
 export default function AdminDashboardPage() {
@@ -187,6 +188,23 @@ export default function AdminDashboardPage() {
       alert('Failed to update order: ' + (err.message || 'Unknown error'));
     } finally {
       setUpdatingWaas(false);
+    }
+  };
+
+  const handleDeleteWaasOrder = async (orderRef) => {
+    if (!window.confirm(`Are you sure you want to permanently delete order ${orderRef}?`)) return;
+    try {
+      setLoading(true);
+      await apiClient.delete(`/websites/admin/orders/${orderRef}/`, {
+        headers: getAuthHeaders(),
+      });
+      setSelectedWaasOrder(null);
+      fetchDashboardData();
+      alert(`Order ${orderRef} deleted successfully!`);
+    } catch (err) {
+      alert(`Failed to delete order: ${err.message || 'Unknown error'}`);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -455,6 +473,15 @@ export default function AdminDashboardPage() {
                         Trial Active
                       </span>
                     )}
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteWaasOrder(selectedWaasOrder.order_ref)}
+                      className="px-3 py-1 rounded-full bg-rose-50 text-rose-600 hover:bg-rose-100 font-bold text-xs flex items-center gap-1 transition border border-rose-200"
+                      title="Permanently Delete Order"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                      <span>Delete Order</span>
+                    </button>
                   </div>
                 </div>
 

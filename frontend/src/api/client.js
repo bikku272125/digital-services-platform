@@ -89,6 +89,7 @@ export const waasAPI = {
   triggerExport: (orderRef, data) => apiClient.post(`/websites/orders/${orderRef}/export/`, data),
   getAdminOrders: () => apiClient.get('/websites/admin/orders/'),
   updateAdminOrder: (orderRef, data) => apiClient.patch(`/websites/admin/orders/${orderRef}/`, data),
+  deleteAdminOrder: (orderRef) => apiClient.delete(`/websites/admin/orders/${orderRef}/`),
 };
 
 export default apiClient;

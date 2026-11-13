@@ -161,7 +161,7 @@ class AdminWebsiteOrdersListView(generics.ListAPIView):
         return WebsiteOrder.objects.all().select_related('package', 'template').order_by('-created_at')
 
 
-class AdminWebsiteOrderUpdateView(generics.UpdateAPIView):
+class AdminWebsiteOrderUpdateView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = WebsiteOrderDetailSerializer
     permission_classes = [permissions.AllowAny]
     queryset = WebsiteOrder.objects.all()
