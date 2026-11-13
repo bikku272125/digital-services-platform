@@ -178,6 +178,8 @@ class AdminWebsiteOrderUpdateView(generics.UpdateAPIView):
             order.is_delivered = bool(data['is_delivered'])
         if 'is_active' in data:
             order.is_active = bool(data['is_active'])
+        if 'is_trial' in data:
+            order.is_trial = bool(data['is_trial'])
         if 'deployed_url' in data:
             order.deployed_url = data['deployed_url']
         if 'assigned_subdomain' in data:
