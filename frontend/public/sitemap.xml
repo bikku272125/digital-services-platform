@@ -68,7 +68,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://digital.aaradhyaenertech.com/news/trending-news/at-sonia-gandhis-book-event-bjps-amarinder-singh-lands-in-the-middle-of-a-congress-family-story</loc>
+    <loc>https://digital.aaradhyaenertech.com/news/trending-news/bilkis-bano-expresses-shock-over-supreme-court-order-suspending-sentences-of-men-convicted-for-gang-rape</loc>
     <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -77,8 +77,36 @@
         <news:name>Aaradhya Enertech Digital Intelligence</news:name>
         <news:language>en</news:language>
       </news:publication>
-      <news:publication_date>2026-11-17T01:28:51.428339+00:00</news:publication_date>
-      <news:title>At Sonia Gandhi&#x27;s Book Event, BJP&#x27;s Amarinder Singh Lands In The Middle Of A Congress Family Story</news:title>
+      <news:publication_date>2026-11-17T15:25:33.688380+00:00</news:publication_date>
+      <news:title>Bilkis Bano Expresses Shock Over Supreme Court Order Suspending Sentences Of Men Convicted For Gang-Rape...</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://digital.aaradhyaenertech.com/news/trending-news/asean-summit-live-updates-quad-is-a-trusted-partnership-delivering-solutions-says-pm-modi</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Aaradhya Enertech Digital Intelligence</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-17T15:25:33.418111+00:00</news:publication_date>
+      <news:title>ASEAN Summit LIVE updates: Quad is a ‘trusted partnership’ delivering solutions, says PM Modi</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://digital.aaradhyaenertech.com/news/business/robust-inflows-pullback-in-shorts-lift-rupee-to-seven-month-peak</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Aaradhya Enertech Digital Intelligence</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-17T15:25:33.068844+00:00</news:publication_date>
+      <news:title>Robust inflows, pullback in shorts lift rupee to seven-month peak</news:title>
     </news:news>
   </url>
   <url>
