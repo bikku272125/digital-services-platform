@@ -68,7 +68,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://digital.aaradhyaenertech.com/news/trending-news/lets-lateef-bhat-killed-in-kulgam-encounter</loc>
+    <loc>https://digital.aaradhyaenertech.com/news/trending-news/lateef-bhatt-dead-how-forces-tracked-down-let-commander-who-built-youth-recruitment-network-in-kulgam</loc>
     <lastmod>2026-11-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -77,12 +77,12 @@
         <news:name>Aaradhya Enertech Digital Intelligence</news:name>
         <news:language>en</news:language>
       </news:publication>
-      <news:publication_date>2026-11-18T14:59:33.846822+00:00</news:publication_date>
-      <news:title>LeT’s Lateef Bhat killed in Kulgam encounter</news:title>
+      <news:publication_date>2026-11-18T23:49:56.984148+00:00</news:publication_date>
+      <news:title>Lateef Bhatt dead: How forces tracked down LeT commander who built youth recruitment network in Kulgam</news:title>
     </news:news>
   </url>
   <url>
-    <loc>https://digital.aaradhyaenertech.com/news/trending-news/xi-putin-meet-ahead-of-historic-trump-trilateral-summit</loc>
+    <loc>https://digital.aaradhyaenertech.com/news/trending-news/xi-hails-russia-ties-as-source-of-stability-ahead-of-trilateral-summit</loc>
     <lastmod>2026-11-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -91,8 +91,36 @@
         <news:name>Aaradhya Enertech Digital Intelligence</news:name>
         <news:language>en</news:language>
       </news:publication>
-      <news:publication_date>2026-11-18T14:59:33.753032+00:00</news:publication_date>
-      <news:title>Xi, Putin meet ahead of historic Trump trilateral summit</news:title>
+      <news:publication_date>2026-11-18T23:49:56.842992+00:00</news:publication_date>
+      <news:title>Xi hails Russia ties as ‘source of stability’ ahead of trilateral summit</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://digital.aaradhyaenertech.com/news/business/as-anthropics-ipo-is-less-than-24-hours-away-heres-blackstones-junk-warning-to-investors</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Aaradhya Enertech Digital Intelligence</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-18T23:49:56.522552+00:00</news:publication_date>
+      <news:title>As Anthropic&#x27;s IPO is less than 24 hours away, here&#x27;s Blackstone&#x27;s &#x27;junk warning&#x27; to investors</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://digital.aaradhyaenertech.com/news/business/gold-prices-remain-under-pressure-as-fed-minutes-show-central-bank-committed-to-cooling-inflation</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Aaradhya Enertech Digital Intelligence</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-18T23:49:56.374945+00:00</news:publication_date>
+      <news:title>Gold prices remain under pressure as Fed minutes show central bank committed to cooling inflation</news:title>
     </news:news>
   </url>
   <url>
