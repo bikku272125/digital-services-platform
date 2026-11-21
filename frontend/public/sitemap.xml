@@ -68,7 +68,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://digital.aaradhyaenertech.com/news/trending-news/chinas-pak-backing-during-op-sindoor-part-of-bid-to-curb-indias-rise-us-panel</loc>
+    <loc>https://digital.aaradhyaenertech.com/news/trending-news/india-takes-note-of-trump-xi-putin-summit-awaits-more-details</loc>
     <lastmod>2026-11-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -77,12 +77,12 @@
         <news:name>Aaradhya Enertech Digital Intelligence</news:name>
         <news:language>en</news:language>
       </news:publication>
-      <news:publication_date>2026-11-21T14:04:36.155504+00:00</news:publication_date>
-      <news:title>China&#x27;s Pak backing during Op Sindoor part of bid to curb India&#x27;s rise: US panel</news:title>
+      <news:publication_date>2026-11-21T22:43:19.894856+00:00</news:publication_date>
+      <news:title>India ‘takes note’ of Trump-Xi-Putin summit, awaits more details</news:title>
     </news:news>
   </url>
   <url>
-    <loc>https://digital.aaradhyaenertech.com/news/trending-news/trampling-sikh-sentiments-congress-questions-naming-of-bihar-bridge-as-nitish-setu</loc>
+    <loc>https://digital.aaradhyaenertech.com/news/trending-news/trump-says-iran-deal-could-last-20-years-claims-us-removed-tehran-leadership-twice-eyes-ultimate-regim</loc>
     <lastmod>2026-11-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -91,8 +91,36 @@
         <news:name>Aaradhya Enertech Digital Intelligence</news:name>
         <news:language>en</news:language>
       </news:publication>
-      <news:publication_date>2026-11-21T14:04:36.005357+00:00</news:publication_date>
-      <news:title>&#x27;Trampling Sikh sentiments&#x27;: Congress questions naming of Bihar bridge as Nitish Setu</news:title>
+      <news:publication_date>2026-11-21T22:43:19.729002+00:00</news:publication_date>
+      <news:title>Trump says Iran deal could last 20 years, claims US removed Tehran leadership twice, eyes &#x27;ultimate regim</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://digital.aaradhyaenertech.com/news/business/rbi-governor-sanjay-malhotra-urges-banks-to-step-up-lending-to-small-micro-enterprises-for-greater</loc>
+    <lastmod>2026-11-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Aaradhya Enertech Digital Intelligence</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-21T22:43:19.398418+00:00</news:publication_date>
+      <news:title>RBI Governor Sanjay Malhotra urges banks to step up lending to small, micro enterprises for greater...</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://digital.aaradhyaenertech.com/news/business/bitcoin-falls-to-more-than-2-year-low-as-global-markets-sink</loc>
+    <lastmod>2026-11-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Aaradhya Enertech Digital Intelligence</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-21T22:43:19.265745+00:00</news:publication_date>
+      <news:title>Bitcoin falls to more than 2-year low as global markets sink</news:title>
     </news:news>
   </url>
   <url>
