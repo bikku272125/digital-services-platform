@@ -68,8 +68,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://digital.aaradhyaenertech.com/news/business/tata-trusts-decides-to-move-bombay-high-court-challenging-n-chandrasekarans-reappointment</loc>
-    <lastmod>2026-11-26</lastmod>
+    <loc>https://digital.aaradhyaenertech.com/news/trending-news/thanksgiving-storm-batters-eastern-us-leaves-over-900000-without-power-as-floods-disrupt-travel</loc>
+    <lastmod>2026-11-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <news:news>
@@ -77,8 +77,50 @@
         <news:name>Aaradhya Enertech Digital Intelligence</news:name>
         <news:language>en</news:language>
       </news:publication>
-      <news:publication_date>2026-11-26T16:16:21.776048+00:00</news:publication_date>
-      <news:title>Tata Trusts decides to move Bombay High Court challenging N. Chandrasekaran’s reappointment</news:title>
+      <news:publication_date>2026-11-27T01:26:04.673887+00:00</news:publication_date>
+      <news:title>Thanksgiving storm batters eastern US, leaves over 900,000 without power as floods disrupt travel</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://digital.aaradhyaenertech.com/news/trending-news/amended-delimitation-bill-likely-to-be-tabled-in-special-parliament-sitting-from-november-30</loc>
+    <lastmod>2026-11-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Aaradhya Enertech Digital Intelligence</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-27T01:26:04.599867+00:00</news:publication_date>
+      <news:title>Amended Delimitation Bill likely to be tabled in special Parliament sitting from November 30</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://digital.aaradhyaenertech.com/news/business/tata-trusts-move-bombay-high-court-against-resolution-appointing-n-chandrasekaran-as-tata-sons-chairman</loc>
+    <lastmod>2026-11-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Aaradhya Enertech Digital Intelligence</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-27T01:26:04.444081+00:00</news:publication_date>
+      <news:title>Tata Trusts move Bombay High Court against resolution appointing N Chandrasekaran as Tata Sons chairman</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://digital.aaradhyaenertech.com/news/business/jensen-huang-needs-a-new-playbook-for-his-second-innings-at-nvidia</loc>
+    <lastmod>2026-11-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <news:news>
+      <news:publication>
+        <news:name>Aaradhya Enertech Digital Intelligence</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2026-11-27T01:26:04.357731+00:00</news:publication_date>
+      <news:title>Jensen Huang needs a new playbook for his second innings at Nvidia</news:title>
     </news:news>
   </url>
   <url>
